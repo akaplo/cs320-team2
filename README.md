@@ -5,6 +5,7 @@ An application for your mental health.
 ## Setup:
 
 1. Clone this repository.
+2. Run `sudo npm install -g cordova ionic` (drop the `sudo` when on Windows)
 2. Run `npm install`.
 3. Run `bower install`.
 
