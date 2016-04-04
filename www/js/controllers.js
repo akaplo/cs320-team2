@@ -25,4 +25,25 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
-});
+})
+
+.controller('Log_moodCtrl', function($scope) {
+
+})
+
+.controller('Find_patternsCtrl', function($scope) {
+
+})
+
+.controller('Get_helpCtrl', function($scope) {
+
+})
+
+.controller('Track_progressCtrl', function($scope) {
+
+})
+
+.controller('PreferencesCtrl', function($scope) {
+  
+})
+;
