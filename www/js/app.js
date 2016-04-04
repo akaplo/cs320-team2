@@ -77,7 +77,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
+
+  .state('tab.track-progress', {
+    url: '/track-progress',
+    views:{
+      'tab-track-progress':{
+        templateUrl: 'templates/tab-track-progress.html',
+        controller: 'TrackProgressCtrl'
+      }
+    }
+  })
+  ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
