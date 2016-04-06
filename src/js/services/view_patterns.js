@@ -1,6 +1,6 @@
-'use strict';
+angular.module('starter.services', [])
 
-angular.module('starter.services', []).service('View Patterns', function () {
+.service('View Patterns', function() {
 
   // Constructor for pattern objects, might delete
   function Pattern(keyword, origin, mood, intensity) {
@@ -11,10 +11,14 @@ angular.module('starter.services', []).service('View Patterns', function () {
   }
 
   // Dummy pattern data
-  var patterns = [new Pattern('exam', 'belief', 'stressed', 0.9), new Pattern('chocolate', 'behavior', 'happy', 0.7)];
+  var patterns =
+  [
+    new Pattern('exam', 'belief', 'stressed', 0.9),
+    new Pattern('chocolate', 'behavior', 'happy', 0.7)
+  ];
 
   return {
-    all: function all() {
+    all: function() {
       return patterns;
     }
   };
