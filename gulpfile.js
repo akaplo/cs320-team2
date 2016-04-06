@@ -11,7 +11,7 @@ var babel = require("gulp-babel");
 var plumber = require("gulp-plumber");
 
 var paths = {
-  es6: ['./src/js/**/*.js'],
+  es6: ['./src/js/app.js','./src/js/**/*.js'],
   sass: ['./scss/**/*.scss']
 };
 
@@ -34,6 +34,7 @@ gulp.task('babel', function () {
   return gulp.src(paths.es6)
     .pipe(plumber())
     .pipe(babel({presets: ['es2015']}))
+    .pipe(concat('app.min.js'))
     .pipe(gulp.dest("www/js"));
 });
 
