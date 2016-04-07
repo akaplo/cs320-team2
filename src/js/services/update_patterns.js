@@ -40,45 +40,53 @@ angular.module('starter.services', [])
     }
   };
 
-  database.insert_view_pattern_word = (word) => {
-    theta_table.push(new ThetaRow(theta_table.length, word, 0, 0, 0, 0, 0, 0));
-    return new Promise((resolve, reject) => resolve(theta_table.length - 1));
-  };
-
   database.get_view_patterns_size = () => {
     return new Promise((resolve, reject) => resolve(theta_table.length));
   };
 
-  database.set_theta = (key, origin, mood, theta) => {
+  database.set_theta = (key, mood, theta) => {
     return new Promise((resolve, reject) => {
-      if(origin === 'trigger') {
+      if(key / theta_table.length < 1) {
         if(mood === 'happy') theta_table[key].happy_trigger_theta = theta;
         if(mood === 'sad') theta_table[key].sad_trigger_theta = theta;
-      } else if(origin === 'belief') {
-        if(mood === 'happy') theta_table[key].happy_belief_theta = theta;
-        if(mood === 'sad') theta_table[key].sad_belief_theta = theta;
-      } else if(origin === 'behavior') {
-        if(mood === 'happy') theta_table[key].happy_behavior_theta = theta;
-        if(mood === 'sad') theta_table[key].sad_behavior_theta = theta;
+      } else if(key / theta_table.length < 2) {
+        if(mood === 'happy') theta_table[key % theta_table.length].happy_belief_theta = theta;
+        if(mood === 'sad') theta_table[key % theta_table.length].sad_belief_theta = theta;
+      } else if(key / theta_table.length < 3) {
+        if(mood === 'happy') theta_table[key % theta_table.length].happy_behavior_theta = theta;
+        if(mood === 'sad') theta_table[key % theta_table.length].sad_behavior_theta = theta;
       }
       resolve(theta);
     });
   };
 
-  database.get_thetas_by_origin_and_mood = (origin, mood) => {
-    return new Promise((resolve, reject) => {
-      if(origin === 'trigger') {
-        if(mood === 'happy') resolve(theta_table.map((row) => row.happy_trigger_theta));
-        else if(mood === 'sad') resolve(theta_table.map((row) => row.sad_trigger_theta));
-      } else if(origin === 'belief') {
-        if(mood === 'happy') resolve(theta_table.map((row) => row.happy_belief_theta));
-        else if(mood === 'sad') resolve(theta_table.map((row) => row.sad_belief_theta));
-      } else if(origin === 'behavior') {
-        if(mood === 'happy') resolve(theta_table.map((row) => row.happy_behavior_theta));
-        else if(mood === 'sad') resolve(theta_table.map((row) => row.sad_behavior_theta));
-      }
+  database.get_mood_thetas = (mood) => {
+    if(mood === 'happy') return new Promise((resolve, reject) =>
+      resolve(theta_table.map((row) => row.happy_trigger_theta).concat(
+        theta_table.map((row) => row.happy_belief_theta)).concat(
+        theta_table.map((row) => row.happy_behavior_theta)))
+    );
+    else if(mood === 'sad') return new Promise((resolve, reject) =>
+      resolve(theta_table.map((row) => row.sad_trigger_theta).concat(
+        theta_table.map((row) => row.sad_belief_theta)).concat(
+        theta_table.map((row) => row.sad_behavior_theta)))
+    );
+  };
+
+  database.get_mood_origin_thetas = (mood, origin) => {
+    if(mood === 'happy') return new Promise((resolve, reject) => {
+      if(origin === 'trigger') resolve(theta_table.map((row) => row.happy_trigger_theta));
+      if(origin === 'belief') resolve(theta_table.map((row) => row.happy_belief_theta));
+      if(origin === 'behavior') resolve(theta_table.map((row) => row.happy_behavior_theta));
+    });
+    else if(mood === 'sad') return new Promise((resolve, reject) => {
+      if(origin === 'trigger') resolve(theta_table.map((row) => row.sad_trigger_theta));
+      if(origin === 'belief') resolve(theta_table.map((row) => row.sad_belief_theta));
+      if(origin === 'behavior') resolve(theta_table.map((row) => row.sad_behavior_theta));
     });
   };
+
+  // End of dummy calls
 
   function stopFilter(arr) {
     var stopwords = ["a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't", "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "can't", "cannot", "could", "couldn't", "did", "didn't", "do", "does", "doesn't", "doing", "don't", "down", "during", "each", "few", "for", "from", "further", "had", "hadn't", "has", "hasn't", "have", "haven't", "having", "he", "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself", "him", "himself", "his", "how", "how's", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is", "isn't", "it", "it's", "its", "itself", "let's", "me", "more", "most", "mustn't", "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", "other", "ought", "our", "ours	ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're", "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were", "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who", "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves"];
@@ -115,25 +123,37 @@ angular.module('starter.services', [])
     return sigmoid(numeric.dot(x, theta));
   }
 
-  function gradientDescent(origin, mood, x, y, alpha) {
-    return database.get_thetas_by_origin_and_mood(origin, mood).then((thetas) => {
+  function gradientDescent(mood, x, y, alpha) {
+    return database.get_mood_thetas(mood).then((thetas) => {
       var promises = [];
       thetas.forEach((theta, i) =>
-        promises.push(database.set_theta(i, origin, mood, theta - ((predict(x, thetas) - y) * x[i]))));
+        promises.push(database.set_theta(i, mood, theta - ((predict(x, thetas) - y) * x[i]))));
       return Promise.all(promises);
     });
   }
 
+  function even(arr) {
+    'use strict';
+    arr.sort((a, b) => a.length > b.length);
+    for(let i = arr.length - 2; i >= 0; i--){
+      while(arr[i].length < arr[i + 1].length) arr[i].push(0);
+    }
+    return arr;
+  }
+
+  function masterVector(moodLog) {
+    return featureVector(stopFilter(rawText(moodLog.trigger).split(" "))).then((trigger) =>
+      featureVector(stopFilter(rawText(moodLog.belief).split(" "))).then((belief) =>
+      featureVector(stopFilter(rawText(moodLog.behavior).split(" "))).then((behavior) =>
+        even([trigger, belief, behavior]).reduce((a, b) => a.concat(b))
+      )));
+  }
+
   return {
     update: (moodLog) => {
-      return Promise.all([
-      featureVector(stopFilter(rawText(moodLog.belief).split(" "))).then((x) =>
-        gradientDescent('belief', moodLog.mood, x, moodLog.intensity / 10, learningRate)),
-      featureVector(stopFilter(rawText(moodLog.behavior).split(" "))).then((x) =>
-        gradientDescent('behavior', moodLog.mood, x, moodLog.intensity / 10, learningRate)),
-      featureVector(stopFilter(rawText(moodLog.trigger).split(" "))).then((x) =>
-        gradientDescent('trigger', moodLog.mood, x, moodLog.intensity / 10, learningRate))
-      ]);
+      return masterVector(moodLog).then((x) =>
+        gradientDescent(moodLog.mood, x, moodLog.intensity / 10, learningRate)
+      );
     }
   };
 });
