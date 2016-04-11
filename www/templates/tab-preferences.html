@@ -1,0 +1,40 @@
+<ion-view view-title="Preferences">
+  <ion-content class="padding">
+    <h2>Preferences</h2>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Your Name</span>
+        <input type="text">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="password">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Help Contact</span>
+        <input type="text">
+      </label>
+      <a class="item item-thumbnail-right" href="#">
+        <h2><span class="input-label">Splash Screen</span></h2>
+        <img ng-src="{{splashScreen}}">
+      </a>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Reminder Rate
+        </div>
+        <select>
+          <option selected>Never</option>
+          <option>Once a week</option>
+          <option>Once a day</option>
+          <option>Twice a day</option>
+        </select>
+      </label>
+      <button class="button button-large button-balanced">
+        Apply
+      </button>
+      <button class="button button-large button-balanced">
+        Delete All Mood Logs
+      </button>
+    </div>
+  </ion-content>
+</ion-view>
