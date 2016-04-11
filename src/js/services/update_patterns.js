@@ -6,8 +6,6 @@ angular.module('starter.services', [])
   // Change me! eventually...
   const learningRate = 1;
 
-  const numeric = require('numeric');
-
   // Dummy Constructor
   function ThetaRow(key, word, happy_trigger_theta, sad_trigger_theta, happy_belief_theta, sad_belief_theta, happy_behavior_theta, sad_behavior_theta) {
     this.key = key;
