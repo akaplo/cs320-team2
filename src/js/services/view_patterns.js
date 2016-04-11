@@ -1,3 +1,4 @@
+/* jshint esversion:6 */
 angular.module('starter.services', [])
 
 .service('View Patterns', function() {
@@ -17,9 +18,14 @@ angular.module('starter.services', [])
     new Pattern('chocolate', 'behavior', 'happy', 0.7)
   ];
 
+  // Dummy calls
+  var database = {};
+
+  database.get_pattern_cache = () => new Promise((resolve, reject) => resolve(patterns));
+
   return {
     all: function() {
-      return patterns;
+      return database.get_pattern_cache();
     }
   };
 });
