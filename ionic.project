@@ -1,4 +1,7 @@
 {
   "name": "moodTracker",
-  "app_id": ""
+  "app_id": "",
+  "gulpStartupTasks": [
+    "default"
+  ]
 }
