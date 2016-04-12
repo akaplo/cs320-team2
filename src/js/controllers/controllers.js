@@ -49,11 +49,11 @@ var module = angular.module('starter.controllers', [])
 
   // Build functions.
   $scope.preferences.apply = function() {
-    console.log('TODO:  userName = ' + $scope.preferences.userName);
-    console.log('TODO:  password = ' + $scope.preferences.password);
-    console.log('TODO:  contact = ' + $scope.preferences.helpContact);
-    console.log('TODO:  splashScreen = ' + $scope.preferences.splashScreen);
-    console.log('TODO:  selectedReminderString = "' + $scope.preferences.selectedReminderString + "'");
+    console.log('TODO:  Put in database userName = ' + $scope.preferences.userName);
+    console.log('TODO:  Put in database password = ' + $scope.preferences.password);
+    console.log('TODO:  Put in database contact = ' + $scope.preferences.helpContact);
+    console.log('TODO:  Put in database splashScreen = ' + $scope.preferences.splashScreen);
+    console.log('TODO:  Put in database reminder rate = ' + $scope.preferences.REMINDER_RATE_VALS[$scope.preferences.selectedReminderString]);
   }
 })
 
