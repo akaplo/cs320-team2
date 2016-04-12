@@ -55,6 +55,11 @@ var module = angular.module('starter.controllers', [])
     console.log('TODO:  Put in database splashScreen = ' + $scope.preferences.splashScreen);
     console.log('TODO:  Put in database reminder rate = ' + $scope.preferences.REMINDER_RATE_VALS[$scope.preferences.selectedReminderString]);
   }
+  $scope.preferences.deleteAll = function() {
+    if(confirm('Are you sure?  If you delete your mood logs, they are gone.  This action cannot be undone!')) {
+              console.log('TODO:  Delete all mood logs in the database!');
+    }
+  }
 })
 
 .controller('AccountCtrl', function($scope) {
