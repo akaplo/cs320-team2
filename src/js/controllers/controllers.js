@@ -22,30 +22,38 @@ var module = angular.module('starter.controllers', [])
 })
 
 .controller('PreferencesCtrl', function($scope) {
-  $scope.userName = "TODO:  CALL TO DATABASE!!!!";
-  $scope.password = "TODO:  CALL TO DATABASE!!!!";
-  $scope.helpContact = "TODO:  CALL TO DATABASE!!!!";
-  $scope.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg"; //TODO:  Call to database!
+  $scope.preferences = {};
+  $scope.preferences.userName = "TODO:  CALL TO DATABASE!!!!";
+  $scope.preferences.password = "TODO:  CALL TO DATABASE!!!!";
+  $scope.preferences.helpContact = "TODO:  CALL TO DATABASE!!!!";
+  $scope.preferences.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg"; //TODO:  Call to database!
 
   // Let the user select their reminder rate.
   // Fetch previous state.
-  $scope.reminderRate = Infinity; //TODO:  Call to database!
+  $scope.preferences.reminderRate = Infinity; //TODO:  Call to database!
   // Build a table of the reminder rates allowed.
-  $scope.REMINDER_RATE_VALS = {};
-  $scope.REMINDER_RATE_VALS["Twice A Day"] =     12 * 60 * 60 * 1000;
-  $scope.REMINDER_RATE_VALS["Once A Day"]  =     24 * 60 * 60 * 1000;
-  $scope.REMINDER_RATE_VALS["Once A Week"] = 7 * 24 * 60 * 60 * 1000;
-  $scope.REMINDER_RATE_VALS["Never"]       = Infinity;
+  $scope.preferences.REMINDER_RATE_VALS = {};
+  $scope.preferences.REMINDER_RATE_VALS["Twice A Day"] =     12 * 60 * 60 * 1000;
+  $scope.preferences.REMINDER_RATE_VALS["Once A Day"]  =     24 * 60 * 60 * 1000;
+  $scope.preferences.REMINDER_RATE_VALS["Once A Week"] = 7 * 24 * 60 * 60 * 1000;
+  $scope.preferences.REMINDER_RATE_VALS["Never"]       = Infinity;
   // Build the list that will be displayed.
-  $scope.selectedReminderString = "Time is an illusion.";
-  $scope.unselectedReminderStrings = [];
-  for(var x in $scope.REMINDER_RATE_VALS){
-    if($scope.reminderRate === $scope.REMINDER_RATE_VALS[x]) {
-      $scope.selectedReminderString = x;
+  $scope.preferences.selectedReminderString = "Time is an illusion.";
+  $scope.preferences.unselectedReminderStrings = [];
+  for(var x in $scope.preferences.REMINDER_RATE_VALS){
+    if($scope.preferences.reminderRate === $scope.preferences.REMINDER_RATE_VALS[x]) {
+      $scope.preferences.selectedReminderString = x;
     }
-    else {
-      $scope.unselectedReminderStrings.push(x);
-    }
+    $scope.preferences.unselectedReminderStrings.push(x);
+  }
+
+  // Build functions.
+  $scope.preferences.apply = function() {
+    console.log('TODO:  userName = ' + $scope.preferences.userName);
+    console.log('TODO:  password = ' + $scope.preferences.password);
+    console.log('TODO:  contact = ' + $scope.preferences.helpContact);
+    console.log('TODO:  splashScreen = ' + $scope.preferences.splashScreen);
+    console.log('TODO:  selectedReminderString = "' + $scope.preferences.selectedReminderString + "'");
   }
 })
 

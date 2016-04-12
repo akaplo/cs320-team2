@@ -4,34 +4,30 @@
     <div class="list">
       <label class="item item-input">
         <span class="input-label">Your Name</span>
-        <input type="text" value="{{userName}}">
+        <input type="text" ng-model="preferences.userName">
       </label>
       <label class="item item-input">
         <span class="input-label">Password</span>
-        <input type="password" value="{{password}}">
+        <input type="password" ng-model="preferences.password">
       </label>
       <label class="item item-input">
         <span class="input-label">Help Contact</span>
-        <input type="text" value={{helpContact}}>
+        <input type="text" ng-model="preferences.helpContact">
       </label>
       <a class="item item-thumbnail-right" href="#">
         <h2><span class="input-label">Splash Screen</span></h2>
-        <img ng-src="{{splashScreen}}">
+        <img ng-src="{{preferences.splashScreen}}">
       </a>
       <label class="item item-input item-select">
         <div class="input-label">
           Reminder Rate
         </div>
-        <select>
-          <option>
-            {{selectedReminderString}}
-          </option>
-          <option ng-repeat="x in unselectedReminderStrings">
-            {{x}}
-          </option>
+        <select ng-model="preferences.selectedReminderString">
+          <option ng-repeat="x in preferences.unselectedReminderStrings">{{x}}</option>
         </select>
+
       </label>
-      <button class="button button-large button-balanced">
+      <button class="button button-large button-balanced" ng-click="preferences.apply()">
         Apply
       </button>
       <button class="button button-large button-balanced">
