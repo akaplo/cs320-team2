@@ -23,10 +23,12 @@ angular.module('starter.services', [])
 	*/
 
 	//Get latest mood log
+	//Will be retrieved from database once it is setup
 	var latestMoodLog = null;
 
 	//Get all feedback about coping strategies
 	//Assume allFeedback is an array of feedback objects
+	//Will be retrieved from database once it is setup
 	var allFeedback = null;
 
 	//Coping strategies for anger
@@ -114,7 +116,7 @@ angular.module('starter.services', [])
 		return filtered;
 	}
 
-	//Return general coping strategies, specific coping strategies, and past coping strategies that have worked in the past
+	//Return general coping strategies, specific coping strategies, and coping strategies that have worked in the past
 	return {
 		generalStrategies: generalStrats,
 		specificStrategies: getSpecificStrategies,
