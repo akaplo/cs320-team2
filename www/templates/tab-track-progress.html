@@ -1,8 +1,12 @@
 <ion-view view-title="Track Progress">
   <ion-content>
     <ion-list>
-      <ion-item>
-        <p>hi</p>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="mood in moods" type="item-text-wrap" href="#/tab/chats/{{mood.moodType}}">
+        <h2>{{mood.moodType}}</h2>
+        <p>{{mood.date}}</p>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>

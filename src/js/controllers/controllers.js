@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
     enableFriends: true
   };
 })
-.controller('TrackProgressCtrl', function($scope) {
-
+.controller('TrackProgressCtrl', function($scope, moods) {
+  $scope.progress = moods.all();
 })
 ;
