@@ -28,7 +28,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('GetHelpCtrl', function($scope) {
-  console.log('wtf')
   $scope.help = "no help yet yo";
 
 });
