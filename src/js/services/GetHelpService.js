@@ -72,7 +72,6 @@ angular.module('starter.services', [])
 
 	//Returns an array of coping strategies for the user's latest mood
 	function getSpecificStrategies() {
-		var filtered = [];
 		//Select coping strategies that match the latest mood
 		switch(latestMoodLog.mood) {
 			//If mood is angry
