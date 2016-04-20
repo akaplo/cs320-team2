@@ -1,8 +1,25 @@
-angular.module('starter.controllers', [])
+app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    console.log("ionicPlatform ready");
 
-.controller('DashCtrl', function($scope) {})
+    // initialize database 
+    sqlService.init().then((res) => {
+      // run a view query
+      sqlService.viewTable('mood_logs').then(
+        (result) => console.log("View result", result.rows.item(0)), 
+        (err) => console.log("View error", err)
+      );
 
-.controller('ChatsCtrl', function($scope, Chats) {
+      sqlService.executeQuery('SELECT * FROM mood_logs').then(
+        (result) => console.log("Query result", result.rows.item(0)), 
+        (err) => console.log("Query error", err)
+      );
+
+    }, (err) => console.log(err));
+  });
+});
+
+app.controller('ChatsCtrl', function($scope, Chats, sqlService, $ionicPlatform) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -15,13 +32,13 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
-})
+});
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+app.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+app.controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
