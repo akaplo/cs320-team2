@@ -69,6 +69,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+
+  .state('tab.progress-detail', {
+    url: '/progress-detail',
+    views: {
+      'tab-progress-detail':{
+        templateUrl: 'templates/tab-progress-detail.html',
+        controller: 'ProgressDetailCtrl'
+      }
+    }
+  })
   ;
 
   // if none of the above states are matched, use this as the fallback

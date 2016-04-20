@@ -18,4 +18,8 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+})
+.services('ProgressDetail', function(mood){
+  
+})
+;
