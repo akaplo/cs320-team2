@@ -32,13 +32,10 @@ angular.module('starter.controllers', [])
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
   $scope.series = ['Angry', 'Happy'];
   $scope.data = [
-    [6, 5, 7, 9, 6, 7, 8],
-    [4, 3, 3, 5, 4, 5, 5]
+    [0, 5, 7, 9, 6, 7, 8],
+    [0, 3, 3, 5, 4, 5, 5]
   ];
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
-  $scope.options = {
-
-  }
 });
