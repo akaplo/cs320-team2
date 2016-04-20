@@ -27,19 +27,19 @@ angular.module('starter.controllers', [])
 
   $scope.inputBelief = function(){
     $scope.push($scope.belief);
-  }
+  };
 
   $scope.inputBehavior = function(){
     $scope.push($scope.behavior);
-  }
+  };
 
   $scope.inputTrigger = function(){
     $scope.push($scope.trigger);
-  }
+  };
 
   $scope.submitForm = function(){
     ???
-  }
+  };
 
 })
 
