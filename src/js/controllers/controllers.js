@@ -9,6 +9,7 @@ angular.module('starter.controllers', [])
 //$scope.$on('$ionicView.enter', function(e) {
 //});
 
+<<<<<<< HEAD
 .controller('PreferencesCtrl', function($scope) {
   $scope.preferences = {};
   $scope.preferences.userName = "TODO:  CALL TO DATABASE!!!!";
@@ -60,3 +61,12 @@ angular.module('starter.controllers', [])
   $scope.help = "no help yet yo";
 
 });
+
+.controller('TrackProgressCtrl', function($scope, Moods) {
+  $scope.progress = Moods.all();
+})
+
+.controller('ProgressDetailCtrl', function($scope, $stateParams, Moods) {
+  $scope.mood = Moods.get($stateParams.moodType);
+})
+;
