@@ -50,24 +50,15 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
+  .state('tab.preferences', {
+    url: '/preferences',
+    views: {
+      'tab-preferences': {
+        templateUrl: 'templates/tab-preferences.html',
+        controller: 'PreferencesCtrl'
       }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+    }
+  })
 
   .state('tab.account', {
     url: '/account',
@@ -75,6 +66,15 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
+      }
+    }
+  })
+  .state('tab.get-help', {
+    url: '/get-help',
+    views: {
+      'tab-get-help': {
+        templateUrl: 'templates/tab-get-help.html',
+        controller: 'GetHelpCtrl'
       }
     }
   });

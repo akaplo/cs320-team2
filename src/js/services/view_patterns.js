@@ -1,5 +1,5 @@
+/* jshint esversion:6 */
 app.service('View Patterns', function() {
-
   // Constructor for pattern objects, might delete
   function Pattern(keyword, origin, mood, intensity) {
     this.keyword = keyword;
@@ -15,9 +15,14 @@ app.service('View Patterns', function() {
     new Pattern('chocolate', 'behavior', 'happy', 0.7)
   ];
 
+  // Dummy calls
+  var database = {};
+
+  database.get_pattern_cache = () => new Promise((resolve, reject) => resolve(patterns));
+
   return {
     all: function() {
-      return patterns;
+      return database.get_pattern_cache();
     }
   };
 });
