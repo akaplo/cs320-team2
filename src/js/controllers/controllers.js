@@ -4,8 +4,8 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
     // initialize database 
     sqlService.init().then((res) => {
       // run a view query
-      sqlService.viewTable('mood_logs').then(
-        (result) => console.log("View result", result.rows.item(0)), 
+      sqlService.viewTable('feedback').then(
+        (result) => console.log("View result", result.rows.item(1)), 
         (err) => console.log("View error", err)
       );
 

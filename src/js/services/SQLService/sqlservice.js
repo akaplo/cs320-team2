@@ -20,6 +20,17 @@ app.factory('sqlService', function($cordovaSQLite) {
 		happy_behavior_theta REAL NOT NULL DEFAULT 0,\
 		stressed_behavior_theta REAL NOT NULL DEFAULT 0)',
 	];
+	popQrys.feedback = [
+		'DROP TABLE IF EXISTS feedback',
+		'CREATE TABLE feedback( copingStrategy TEXT PRIMARY KEY, response INTEGER NOT NULL )',
+		'INSERT INTO feedback (copingStrategy, response) VALUES\
+		("Watch Spongebob", 1),\
+		("Go to the gym", 0),\
+		("Call a family member or friend", 1),\
+		("Take a bath", 0),\
+		("Keep being happy!", 0),\
+		("Watch television", 1)'
+	];
 
 	const populate = () => {
 		return new Promise((resolve, reject) => {
@@ -27,7 +38,8 @@ app.factory('sqlService', function($cordovaSQLite) {
 
 			db.sqlBatch([
 			  ...popQrys.pattern_features,
-			  ...popQrys.mood_logs
+			  ...popQrys.mood_logs,
+			  ...popQrys.feedback
 			], (error) => {
 				if(error) reject(error);
 				db.executeSql('INSERT INTO mood_logs (message) VALUES (?)', ['this is a mood log blah blah blah'], (resultSet) => {
