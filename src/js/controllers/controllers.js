@@ -62,7 +62,7 @@ angular.module('starter.controllers', [])
 });
 
 .controller('TrackProgressCtrl', function($scope, Moods) {
-  $scope.progress = Moods.all();
+  $scope.moods = Moods.all();
 })
 
 .controller('ProgressDetailCtrl', function($scope, $stateParams, Moods) {
