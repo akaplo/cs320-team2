@@ -61,7 +61,10 @@ angular.module('starter.controllers', [])
 
 });
 
-.controller('TrackProgressCtrl', function($scope, Moods) {
+.controller('TrackProgressCtrl', function($scope, Moods, $state) {
+  $scope.showMood = function(mood){
+    $state.go('tab.progress-detail', {mood: mood});
+  };
   $scope.moods = Moods.all();
 })
 

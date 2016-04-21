@@ -50,7 +50,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-<<<<<<< HEAD
   .state('tab.preferences', {
     url: '/preferences',
     views: {
@@ -61,8 +60,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-=======
->>>>>>> 3f8d6ee48bdc3ac403488ef8c54e6a66e6958b14
   .state('tab.account', {
     url: '/account',
     views: {
@@ -72,7 +69,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-<<<<<<< HEAD
+
   .state('tab.get-help', {
     url: '/get-help',
     views: {
@@ -82,7 +79,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   });
-=======
 
   .state('tab.track-progress', {
     url: '/track-progress',
@@ -95,16 +91,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   .state('tab.progress-detail', {
-    url: '/progress-detail',
+    url: '/track-progress/progress-detail',
     views: {
       'tab-progress-detail':{
         templateUrl: 'templates/tab-progress-detail.html',
         controller: 'ProgressDetailCtrl'
       }
     }
+    params: {mood: null}
   })
   ;
->>>>>>> 3f8d6ee48bdc3ac403488ef8c54e6a66e6958b14
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');

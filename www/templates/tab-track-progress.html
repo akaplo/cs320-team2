@@ -1,12 +1,35 @@
 <ion-view view-title="Track Progress">
   <ion-content class="padding">
-    <h1> here </h1>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="mood in moods" type="item-text-wrap" href="#/tab/track-progress/{{mood.moodType}}">
-        <h2>{{mood.moodType}}</h2>
-        <p>{{mood.intensity}}</p>
-        <p>{{mood.date}}</p>
+    <ion-list can-swipe="listCanSwipe">
+  	  <ion-item on-tap="showMood('Happiness')">
+  	  	<div class="list-primary-label">Happiness</div>
+  	  	<div class="list-secondary-label">logged 15 times</div>
+  	  </ion-item>
+
+  	  <ion-item on-tap="showMood('Anger')">
+  	  	<div class="list-primary-label">Anger</div>
+  	  	<div class="list-secondary-label">logged 4 times</div>
+  	  </ion-item>
+
+  	  <ion-item on-tap="showMood('Disgust')">
+  	  	<div class="list-primary-label">Disgust</div>
+  	  	<div class="list-secondary-label">logged 3 times</div>
+  	  </ion-item>
+
+  	  <ion-item on-tap="showMood('Fear')">
+  	  	<div class="list-primary-label">Fear</div>
+  	  	<div class="list-secondary-label">logged 8 times</div>
+  	  </ion-item>
+
+  	  <ion-item on-tap="showMood('Sadness')">
+  	  	<div class="list-primary-label">Sadness</div>
+  	  	<div class="list-secondary-label">logged 10 times</div>
+  	  </ion-item>
+
+      <ion-item on-tap="showMood('Surprise')">
+        <div class="list-primary-label">Surprise</div>
+        <div class="list-secondary-label">logged 2 times</div>
       </ion-item>
-    </ion-list>
+  	</ion-list>
   </ion-content>
 </ion-view>
