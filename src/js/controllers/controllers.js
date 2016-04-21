@@ -9,7 +9,6 @@ angular.module('starter.controllers', [])
 //$scope.$on('$ionicView.enter', function(e) {
 //});
 
-<<<<<<< HEAD
 .controller('PreferencesCtrl', function($scope) {
   $scope.preferences = {};
   $scope.preferences.userName = "TODO:  CALL TO DATABASE!!!!";

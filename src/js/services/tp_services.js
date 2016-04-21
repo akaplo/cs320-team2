@@ -2,16 +2,23 @@ angular.module('starter.services', [])
 .service('TrackProgress', function() {
   var moods = [{
     id: 0,
-    moodType: 'Happy'
+    moodType: 'Happy',
+    intensity: 5,
     date: '2016-01-01',
+  },
+  {
+    id: 0,
+    moodType: 'Angry',
+    intensity: 3,
+    date: '2016-02-02',
   }];
   return {
     all: function() {
       return moods;
     },
-    getChart: function(moodType) {
+    get: function(type) {
       for (var i = 0; i < chats.length; i++) {
-        if (moods[i].moodType === moodType) {
+        if (moods[i].moodType === type) {
           return moods[i];
         }
       }
@@ -20,6 +27,6 @@ angular.module('starter.services', [])
   };
 })
 .services('ProgressDetail', function(mood){
-  
+
 })
 ;
