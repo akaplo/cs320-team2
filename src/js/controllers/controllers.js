@@ -59,16 +59,6 @@ angular.module('starter.controllers', [])
 .controller('GetHelpCtrl', function($scope) {
   $scope.help = "no help yet yo";
 
-});
-
-.controller('TrackProgressCtrl', function($scope, Moods, $state) {
-  $scope.showMood = function(mood){
-    $state.go('tab.progress-detail', {mood: mood});
-  };
-  $scope.moods = Moods.all();
 })
 
-.controller('ProgressDetailCtrl', function($scope, $stateParams, Moods) {
-  $scope.mood = Moods.get($stateParams.moodType);
-})
 ;

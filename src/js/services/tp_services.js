@@ -1,14 +1,14 @@
 angular.module('starter.services', [])
-.service('TrackProgress', function() {
+.service('TrackProgressService', function() {
   var moods = [{
     id: 0,
-    moodType: 'Happy',
+    moodType: 'Happiness',
     intensity: 5,
     date: '2016-01-01',
   },
   {
     id: 0,
-    moodType: 'Angry',
+    moodType: 'Anger',
     intensity: 3,
     date: '2016-02-02',
   }];
@@ -26,7 +26,7 @@ angular.module('starter.services', [])
     }
   };
 })
-.services('ProgressDetail', function(mood){
+.services('ProgressDetailService', function(mood){
 
 })
 ;

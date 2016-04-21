@@ -97,7 +97,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         templateUrl: 'templates/tab-progress-detail.html',
         controller: 'ProgressDetailCtrl'
       }
-    }
+    },
     params: {mood: null}
   })
   ;
