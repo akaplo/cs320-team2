@@ -35,6 +35,19 @@ app.factory('sqlService', function($cordovaSQLite) {
 		("Watch television", 1)'
 	];
 
+	popQrys.preferences_table = [
+		'DROP TABLE IF EXISTS preferences_table',
+		'CREATE TABLE preferences_table(\
+		id INTEGER PRIMARY KEY NOT NULL,\
+		name TEXT NOT NULL,\
+		password TEXT NOT NULL,\
+		contact TEXT NOT NULL,\
+		backgroundURL TEXT NOT NULL,\
+		reminderRate INTEGER NOT NULL DEFAULT 86400000)',
+		`INSERT INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('John', 'password123' ,'idk@idk.com', 'http://vignette2.wikia.nocookie.net/thehungergames/images/4/48/Happy_cat.jpg/revision/latest?cb=20121008044759', 86400000)`
+	];
+	
+
 	const populate = () => {
 		return new Promise((resolve, reject) => {
 			if(db === null) reject("DB connection not initiated. Call init() before running queries.");
@@ -42,7 +55,8 @@ app.factory('sqlService', function($cordovaSQLite) {
 			db.sqlBatch([
 			  ...popQrys.pattern_features,
 			  ...popQrys.mood_logs,
-			  ...popQrys.feedback
+			  ...popQrys.feedback,
+			  ...popQrys.preferences_table
 			], (error) => {
 				if(error) reject(error);
 				// just some test data

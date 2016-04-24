@@ -18,7 +18,19 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
   });
 });
 
-app.controller('PreferencesCtrl', function($scope) {
+app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // initialize database 
+    sqlService.init().then((res) => {
+      // run a view query
+      sqlService.viewTable('preferences_table').then(
+        (result) => console.log("View result", result, result.rows.item(0)), 
+        (err) => console.log("View error", err)
+      );
+    })
+  });
+
+
   $scope.preferences = {};
   $scope.preferences.userName = "TODO:  CALL TO DATABASE!!!!";
   $scope.preferences.password = "TODO:  CALL TO DATABASE!!!!";
