@@ -4,10 +4,13 @@ app.factory('sqlService', function($cordovaSQLite) {
 	var service = {}, db = null;
 
 	let popQrys = {};
+
 	popQrys.mood_logs = [
 		'DROP TABLE IF EXISTS mood_logs',
-		'CREATE TABLE mood_logs(id INTEGER PRIMARY KEY NOT NULL,message TEXT NOT NULL)'
+		'CREATE TABLE mood_logs(id INTEGER PRIMARY KEY NOT NULL,\
+		mood TEXT NOT NULL, intensity INTEGER NOT NULL, trigger TEXT NOT NULL, behavior TEXT NOT NULL, belief TEXT NOT NULL)'
 	];
+
 	popQrys.pattern_features = [
 		'DROP TABLE IF EXISTS pattern_features',
 		'CREATE TABLE pattern_features(\
@@ -42,7 +45,8 @@ app.factory('sqlService', function($cordovaSQLite) {
 			  ...popQrys.feedback
 			], (error) => {
 				if(error) reject(error);
-				db.executeSql('INSERT INTO mood_logs (message) VALUES (?)', ['this is a mood log blah blah blah'], (resultSet) => {
+				// just some test data
+				db.executeSql(`INSERT INTO mood_logs (mood, intensity, trigger, behavior, belief) VALUES ('my mood', 7, 'some trigger', 'some behavior', 'some belief')`, [], (resultSet) => {
 					resolve();
 				}, (error) => reject(error));
 			}, (error) => {
