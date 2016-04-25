@@ -13,17 +13,18 @@
           <option ng-repeat="option in logmood.moodIntensity" value="{{option.id}}">{{option.name}}</option>
           </select>
       </label>
-      
-
-      
-     
-
+      <label>Trigger:
+        <input type="text" ng-model="intrigger">
       </label>
-      <button class="button button-large button-balanced" ng-click="preferences.apply()">
-        Apply
-      </button>
-      <button class="button button-large button-balanced" ng-click="preferences.deleteAll()">
-        Delete All Mood Logs
+      <label>Behavior:
+        <input type="text" ng-model="inbehavior">
+      </label>
+      <label>Belief:
+        <input type="text" ng-model="inbelief">
+      </label>
+      </label>
+      <button name="submit" ng-click="submit()">
+        Submit
       </button>
     </div>
   </ion-content>

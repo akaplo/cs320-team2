@@ -23,9 +23,9 @@ angular.module('starter.controllers', [])
   ];
 };
 
-  $scope.belief = '';
-  $scope.behavior = '';
-  $scope.trigger = '';
+  $scope.belief = element(by.model('inbelief'));
+  $scope.behavior = element(by.model('inbehavior'));
+  $scope.trigger = element(by.model('intrigger'))
   $scope.date = new Date();
 
   $scope.inputBelief = function(){
@@ -40,7 +40,7 @@ angular.module('starter.controllers', [])
     $scope.push($scope.trigger);
   };
 
-  $scope.submitForm = function(){
+  $scope.submit = function(){
     ???
   };
 
