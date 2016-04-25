@@ -14,16 +14,17 @@ angular.module('starter.controllers', [])
   ];
 
   $scope.moodIntensity = [
-      {'intensity':'1 - ???'};
-      {'intensity':'2 - ???'};
-      {'intensity':'3 - ???'};
-      {'intensity':'4 - ???'};
-      {'intensity':'5 - ???'};
+      {'intensity':'1 - Bad'};
+      {'intensity':'2 - Not OK'};
+      {'intensity':'3 - Neutral'};
+      {'intensity':'4 - Good'};
+      {'intensity':'5 - Excellent'};
   ];
 
   $scope.belief = '';
   $scope.behavior = '';
   $scope.trigger = '';
+  $scope.date = new Date();
 
   $scope.inputBelief = function(){
     $scope.push($scope.belief);
