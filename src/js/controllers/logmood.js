@@ -10,8 +10,7 @@ angular.module('starter.controllers', [])
     {id:'5', name:'Sadness'},
     {id:'6', name:'Surprise'}
   ];
-
-
+  
   $scope.moodIntensity = [
       {id:'intensity1', name:'1 - Bad'};
       {id:'intensity2', name:'2 - Not OK'};
@@ -23,7 +22,7 @@ angular.module('starter.controllers', [])
 
   $scope.belief = element(by.model('inbelief'));
   $scope.behavior = element(by.model('inbehavior'));
-  $scope.trigger = element(by.model('intrigger'))
+  $scope.trigger = element(by.model('intrigger'));
   $scope.date = new Date();
 
   $scope.inputBelief = function(){
