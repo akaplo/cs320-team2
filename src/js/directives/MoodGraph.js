@@ -1,5 +1,5 @@
-app.directive("MoodGraph", function() {
+app.directive("moodGraph", function() {
   return {
-    templateURL: 'tab-graph.html'
-  };
-});
+    templateUrl: "tab-graph.html"
+  }
+})
