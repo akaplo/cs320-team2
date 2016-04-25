@@ -1,0 +1,30 @@
+<ion-view view-title="LogMood">
+  <ion-content class="padding">
+    <h2>Log Mood</h2>
+    <div ng-controller = "LogMoodCtrl">
+    <form name = "LogMoodForm">
+      <label for="selectMood"> Select Mood: </label>
+        <select ng-model ="data.repeatSelect">
+          <option ng-repeat="option in logmood.moods" value="{{option.id}}">{{option.name}}</option>
+          </select>
+      </label>
+      <label for="moodIntensity"> Select Mood Intensity: </label>
+        <select ng-model ="data.repeatSelect">
+          <option ng-repeat="option in logmood.moodIntensity" value="{{option.id}}">{{option.name}}</option>
+          </select>
+      </label>
+      
+
+      
+     
+
+      </label>
+      <button class="button button-large button-balanced" ng-click="preferences.apply()">
+        Apply
+      </button>
+      <button class="button button-large button-balanced" ng-click="preferences.deleteAll()">
+        Delete All Mood Logs
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

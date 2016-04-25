@@ -3,23 +3,25 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {})
 
 .controller('LogMoodCtrl', function($scope){
-  $scope.logmood = {};
+  $scope.logmood = {
   $scope.moods = [
-    {'mood':'Anger'},
-    {'mood':'Disgust'},
-    {'mood':'Fear'},
-    {'mood':'Happiness'},
-    {'mood':'Sadness'},
-    {'mood':'Surprise'}
+    {id:'1', name:'Anger'},
+    {id:'2', name:'Disgust'},
+    {id:'3', name:'Fear'},
+    {id:'4', name:'Happiness'},
+    {id:'5', name:'Sadness'},
+    {id:'6', name:'Surprise'}
   ];
 
+
   $scope.moodIntensity = [
-      {'intensity':'1 - Bad'};
-      {'intensity':'2 - Not OK'};
-      {'intensity':'3 - Neutral'};
-      {'intensity':'4 - Good'};
-      {'intensity':'5 - Excellent'};
+      {id:'intensity1', name:'1 - Bad'};
+      {id:'intensity2', name:'2 - Not OK'};
+      {id:'intensity3', name:'3 - Neutral'};
+      {id:'intensity4', name:'4 - Good'};
+      {id:'intensity5', name:'5 - Excellent'};
   ];
+};
 
   $scope.belief = '';
   $scope.behavior = '';
