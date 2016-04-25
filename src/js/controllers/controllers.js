@@ -1,15 +1,36 @@
-angular.module('starter.controllers', [])
+app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    console.log("ionicPlatform ready");
+    // initialize database 
+    sqlService.init().then((res) => {
+      // run a view query
+      sqlService.viewTable('feedback').then(
+        (result) => console.log("View result", result.rows.item(1)), 
+        (err) => console.log("View error", err)
+      );
 
-.controller('DashCtrl', function($scope) {})
-// With the new view caching in Ionic, Controllers are only called
-// when they are recreated or on app start, instead of every page change.
-// To listen for when this page is active (for example, to refresh data),
-// listen for the $ionicView.enter event:
-//
-//$scope.$on('$ionicView.enter', function(e) {
-//});
+      sqlService.executeQuery('SELECT * FROM mood_logs').then(
+        (result) => console.log("Query result", result.rows.item(0)), 
+        (err) => console.log("Query error", err)
+      );
 
-.controller('PreferencesCtrl', function($scope) {
+    }, (err) => console.log(err));
+  });
+});
+
+app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // initialize database 
+    sqlService.init().then((res) => {
+      // run a view query
+      sqlService.viewTable('preferences_table').then(
+        (result) => console.log("View result", result, result.rows.item(0)), 
+        (err) => console.log("View error", err)
+      );
+    })
+  });
+
+
   $scope.preferences = {};
   $scope.preferences.userName = "TODO:  CALL TO DATABASE!!!!";
   $scope.preferences.password = "TODO:  CALL TO DATABASE!!!!";
@@ -48,15 +69,15 @@ angular.module('starter.controllers', [])
               console.log('TODO:  Delete all mood logs in the database!');
     }
   }
-})
+});
 
-.controller('AccountCtrl', function($scope) {
+app.controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
 })
 
-.controller('GetHelpCtrl', function($scope) {
+app.controller('GetHelpCtrl', function($scope) {
   $scope.help = "no help yet yo";
 
 });

@@ -1,8 +1,5 @@
 /* jshint esversion:6 */
-angular.module('starter.services', [])
-
-.service('View Patterns', function() {
-
+app.service('View Patterns', function() {
   // Constructor for pattern objects, might delete
   function Pattern(keyword, origin, mood, intensity) {
     this.keyword = keyword;

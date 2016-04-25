@@ -1,7 +1,5 @@
 /* jshint esversion:6 */
-angular.module('starter.services', [])
-
-.service('Update Patterns', function() {
+app.service('Update Patterns', function() {
 
   // Change me! eventually...
   const learningRate = 1;
