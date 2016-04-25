@@ -4,12 +4,12 @@
     <div ng-controller = "LogMoodCtrl">
     <form name = "LogMoodForm">
       <label for="selectMood"> Select Mood: </label>
-        <select ng-model ="data.repeatSelect">
+        <select ng-model ="logmood.repeatSelect">
           <option ng-repeat="option in logmood.moods" value="{{option.id}}">{{option.name}}</option>
           </select>
       </label>
       <label for="moodIntensity"> Select Mood Intensity: </label>
-        <select ng-model ="data.repeatSelect">
+        <select ng-model ="logmood.repeatSelect">
           <option ng-repeat="option in logmood.moodIntensity" value="{{option.id}}">{{option.name}}</option>
           </select>
       </label>
@@ -26,6 +26,7 @@
       <button name="submit" ng-click="submit()">
         Submit
       </button>
+      </form>
     </div>
   </ion-content>
 </ion-view>
