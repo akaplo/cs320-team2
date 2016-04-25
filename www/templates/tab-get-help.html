@@ -1,8 +1,16 @@
 <ion-view view-title="Get Help">
   <ion-content>
+    <button class="button button-energized" ng-click="retrieveSpecificStrategies()">
+      Get Specific Strategies
+    </button>
+    <button class="button button-energized" ng-click="retrieveGoodStrategies()">
+      Get Specific Strategies
+    </button>
     <ion-item>
       <center>
         {{help}}
+        {{goodStrats}}
+        {{specificStrats}}
       </center>
     </ion-item>
   </ion-content>

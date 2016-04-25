@@ -1,16 +1,16 @@
 app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     console.log("ionicPlatform ready");
-    // initialize database 
+    // initialize database
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('feedback').then(
-        (result) => console.log("View result", result.rows.item(1)), 
+        (result) => console.log("View result", result.rows.item(1)),
         (err) => console.log("View error", err)
       );
 
       sqlService.executeQuery('SELECT * FROM mood_logs').then(
-        (result) => console.log("Query result", result.rows.item(0)), 
+        (result) => console.log("Query result", result.rows.item(0)),
         (err) => console.log("Query error", err)
       );
 
@@ -20,11 +20,11 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
 
 app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // initialize database 
+    // initialize database
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('preferences_table').then(
-        (result) => console.log("View result", result, result.rows.item(0)), 
+        (result) => console.log("View result", result, result.rows.item(0)),
         (err) => console.log("View error", err)
       );
     })
@@ -77,7 +77,14 @@ app.controller('AccountCtrl', function($scope) {
   };
 })
 
-app.controller('GetHelpCtrl', function($scope) {
+app.controller('GetHelpCtrl', function($scope, GetHelp) {
   $scope.help = "no help yet yo";
-
+  $scope.retrieveGoodStrategies = function () {
+    console.log('called good');
+    $scope.goodStrats = GetHelp.pastStrategies();
+  };
+  $scope.retrieveSpecificStrategies = function () {
+    console.log('called specific');
+    $scope.specificStrats = GetHelp.specificStrategies();
+  }
 });

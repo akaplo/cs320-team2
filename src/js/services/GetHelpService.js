@@ -1,7 +1,5 @@
-angular.module('starter.services', [])
+app.factory('GetHelp', function() {
 
-.factory('GetHelp', function() {
-	
 	/* Proposed IDs associated with moods
 	Mood        ID
 	Anger		0
