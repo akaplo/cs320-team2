@@ -1,5 +1,4 @@
-angular.module('starter.services', [])
-.service('TrackProgressService', function() {
+app.service('TrackProgressService', function() {
   var moods = [{
     id: 0,
     moodType: 'Happiness',
@@ -25,8 +24,7 @@ angular.module('starter.services', [])
       return null;
     }
   };
-})
-.services('ProgressDetailService', function(mood){
+});
+app.service('ProgressDetailService', function(mood){
 
-})
-;
+});
