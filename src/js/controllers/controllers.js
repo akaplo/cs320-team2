@@ -1,5 +1,3 @@
-angular.module('starter.controllers', [])
-
 app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     console.log("ionicPlatform ready");
