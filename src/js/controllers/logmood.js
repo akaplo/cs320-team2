@@ -1,17 +1,15 @@
-
-angular.module('starter.controllers', [])
-.controller('LogMoodCtrl', function($scope,sqlService,$ionicPlatform){
+app.controller('LogMoodCtrl', function($scope,sqlService,$ionicPlatform){
   $ionicPlatform.ready(function() {
-    // initialize database 
+    // initialize database
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('preferences_table').then(
-        (result) => console.log("View result", result, result.rows.item(0)), 
+        (result) => console.log("View result", result, result.rows.item(0)),
         (err) => console.log("View error", err)
       );
     })
   });
-  
+
   $scope.logmood = {
   $scope.moods = [
     {id:'1', name:'Anger'},
@@ -49,7 +47,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.submit = function(){
-    
+
   };
 
 })
