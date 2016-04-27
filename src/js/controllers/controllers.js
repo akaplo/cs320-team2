@@ -33,16 +33,16 @@ angular.module('starter.controllers', [])
 app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     console.log("ionicPlatform ready");
-    // initialize database 
+    // initialize database
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('feedback').then(
-        (result) => console.log("View result", result.rows.item(1)), 
+        (result) => console.log("View result", result.rows.item(1)),
         (err) => console.log("View error", err)
       );
 
       sqlService.executeQuery('SELECT * FROM mood_logs').then(
-        (result) => console.log("Query result", result.rows.item(0)), 
+        (result) => console.log("Query result", result.rows.item(0)),
         (err) => console.log("Query error", err)
       );
 
@@ -52,11 +52,11 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
 
 app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // initialize database 
+    // initialize database
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('preferences_table').then(
-        (result) => console.log("View result", result, result.rows.item(0)), 
+        (result) => console.log("View result", result, result.rows.item(0)),
         (err) => console.log("View error", err)
       );
     })
@@ -112,5 +112,17 @@ app.controller('AccountCtrl', function($scope) {
 app.controller('GetHelpCtrl', function($scope) {
   $scope.help = "no help yet yo";
 
+});
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/master
+=======
+
+app.controller('LineCtrl', function($scope) {
+  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+  $scope.series = ['Angry', 'Happy'];
+  $scope.data = [
+    [0, 5, 7, 9, 6, 7, 8],
+    [0, 3, 3, 5, 4, 5, 5]
+  ];
 });
 >>>>>>> refs/remotes/origin/master
