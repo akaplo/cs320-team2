@@ -1,5 +1,5 @@
 {
-  "name": "moodtracker",
+  "name": "mood-tracker",
   "version": "1.1.1",
   "description": "moodTracker: An Ionic project",
   "dependencies": {
