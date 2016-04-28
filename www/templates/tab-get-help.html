@@ -1,17 +1,21 @@
 <ion-view view-title="Get Help">
   <ion-content>
-    <button class="button button-energized" ng-click="retrieveSpecificStrategies()">
+    <button class="button button-block button-energized" ng-click="retrieveSpecificStrategies()">
       Get Specific Strategies
     </button>
-    <button class="button button-energized" ng-click="retrieveGoodStrategies()">
-      Get Specific Strategies
+    <button class="button button-block button-energized" ng-click="retrieveGoodStrategies()">
+      Get Good Strategies
     </button>
-    <ion-item>
-      <center>
-        {{help}}
-        {{goodStrats}}
-        {{specificStrats}}
-      </center>
-    </ion-item>
+    <ion-list class="list card">
+      <ion-item class="item item-icon-left" ng-repeat="strat in goodStrats">
+        <ion-icon class="icon ion-ios-help"></ion-icon>
+        {{strat}}
+      </ion-item>
+      <ion-item class="item item-icon-left" ng-repeat="strat in specificStrats">
+        <ion-icon class="icon ion-ios-help"></ion-icon>
+        {{strat}}
+      </ion-item>
+    </ion-list>
+
   </ion-content>
 </ion-view>
