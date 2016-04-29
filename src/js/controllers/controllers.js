@@ -138,7 +138,12 @@ app.controller('LineCtrl', function($scope) {
 });
 
 app.controller('TrackProgressCtrl', function($scope) {
-  $scope.moods = ['Happiness', 'Anger', 'Disgust', 'Fear', 'Saddness', 'Suprise'];
+  $scope.moods = [{name: 'Happiness', detail: 'Logged 10 times'},
+  {name: 'Disgust', detail: 'Logged 15 times'},
+  {name: 'Fear', detail: 'Logged 20 times'},
+  {name: 'Saddness', detail: 'Logged 25 times'},
+  {name: 'Anger', detail: 'Logged 30 times'},
+  {name: 'Suprise', detail: 'Logged 40 times'}];
 });
 
 app.controller('ProgressDetailCtrl', function($scope, $stateParams) {
