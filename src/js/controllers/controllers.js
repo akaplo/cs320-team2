@@ -77,7 +77,7 @@ app.controller('AccountCtrl', function($scope) {
   };
 })
 
-app.controller('GetHelpCtrl', function($scope, GetHelp) {
+app.controller('GetHelpCtrl', function($scope, GetHelp, $ionicPopup) {
   $scope.help = "no help yet yo";
   $scope.retrieveGoodStrategies = function () {
     console.log('called good');
@@ -89,6 +89,28 @@ app.controller('GetHelpCtrl', function($scope, GetHelp) {
     $scope.goodStrats = null;
     $scope.specificStrats = GetHelp.specificStrategies();
   }
+  $scope.rate = function (strategy) {
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'Does this stragegy work for you?',
+     template: 'Your feedback helps us help you!'
+   });
+
+   confirmPopup.then(function(res) {
+     if(res) {
+       console.log('They like the strategy');
+       sqlService.executeQuery('UPDATE feedback SET response = 1 WHERE copingStrategy = ?', [strategy.name]).then(
+         (result) => console.log("Query result", result.rows.item(0)),
+         (err) => console.log("Query error", err)
+       );
+     } else {
+       console.log('They dont like the strategy');
+       sqlService.executeQuery('UPDATE feedback SET response = 0 WHERE copingStrategy = ?', [strategy.name]).then(
+         (result) => console.log("Query result", result.rows.item(0)),
+         (err) => console.log("Query error", err)
+       );
+     }
+   });
+ };
 });
 
 app.controller('LineCtrl', function($scope) {

@@ -1,4 +1,4 @@
-app.factory('GetHelp', function() {
+app.factory('GetHelp', function(sqlService) {
 
 	/* Proposed IDs associated with moods
 	Mood        ID
@@ -20,23 +20,29 @@ app.factory('GetHelp', function() {
 	}
 	*/
 
-	//Get latest mood log
-	//Will be retrieved from database once it is setup
-	// For now, make it a placeholder.
 	var latestMoodLog = {
-		mood: 0
+		mood: 5
 	};
+//Get all the mood logs?
+	sqlService.executeQuery('SELECT * FROM mood_logs').then(function(result){
+		console.log("Query result", result.rows.item(1))
+		latestMoodLog.mood = result.rows.item(1).id;
+	}),
+		(err) => console.log("Query error", err)
+
+
+
 
 	//Coping strategies for anger
 	var angerStrats = [
-		"Go to the gym",
-		"Go for a walk"
+		{name:"Go to the gym", id: 0},
+		{name:"Go for a walk", id: 1}
 	];
 
 	//Coping strategies for disgust
 	var disgustStrats = [
-		"Speak with a trusted family member about your day",
-		"Take a bath"
+		{name: "Speak with a trusted family member about your day", id: 0},
+		{name:"Take a bath", id: 1}
 	];
 
 	//Coping strategies for fear

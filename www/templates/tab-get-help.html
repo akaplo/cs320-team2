@@ -11,9 +11,9 @@
         <ion-icon class="icon ion-ios-help"></ion-icon>
         {{strat}}
       </ion-item>
-      <ion-item class="item item-icon-left" ng-repeat="strat in specificStrats">
+      <ion-item class="item item-icon-left" ng-repeat="strat in specificStrats" ng-click="rate(strat)">
         <ion-icon class="icon ion-ios-help"></ion-icon>
-        {{strat}}
+        {{strat.name}}
       </ion-item>
     </ion-list>
 
