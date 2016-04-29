@@ -113,13 +113,13 @@ app.controller('GetHelpCtrl', function($scope, GetHelp, $ionicPopup, sqlService,
    confirmPopup.then(function(res) {
      if(res) {
        console.log('They like the strategy');
-       sqlService.executeQuery('UPDATE feedback SET response = 1 WHERE name = ?', [strategy.name]).then(
+       sqlService.executeQuery(`UPDATE feedback SET response = 1 WHERE name = ${strategy.name}`).then(
          (result) => console.log("Query result", result.rows.item(0)),
          (err) => console.log("Query error", err)
        );
      } else {
        console.log('They dont like the strategy');
-       sqlService.executeQuery('UPDATE feedback SET response = 0 WHERE name = ?', [strategy.name]).then(
+       sqlService.executeQuery(`UPDATE feedback SET response = 0 WHERE name = ${strategy.name}`).then(
          (result) => console.log("Query result", result.rows.item(0)),
          (err) => console.log("Query error", err)
        );
