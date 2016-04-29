@@ -1,7 +1,5 @@
-angular.module('starter.services', [])
+app.factory('GetHelp', function() {
 
-.factory('GetHelp', function() {
-	
 	/* Proposed IDs associated with moods
 	Mood        ID
 	Anger		0
@@ -24,12 +22,10 @@ angular.module('starter.services', [])
 
 	//Get latest mood log
 	//Will be retrieved from database once it is setup
-	var latestMoodLog = null;
-
-	//Get all feedback about coping strategies
-	//Assume allFeedback is an array of feedback objects
-	//Will be retrieved from database once it is setup
-	var allFeedback = null;
+	// For now, make it a placeholder.
+	var latestMoodLog = {
+		mood: 0
+	};
 
 	//Coping strategies for anger
 	var angerStrats = [
@@ -67,7 +63,12 @@ angular.module('starter.services', [])
 		"Watch television"
 	];
 
-	//An array of general coping strategies. Contains all coping strategies from above
+	//Get all feedback about coping strategies
+	//Assume allFeedback is an array of feedback objects
+	//Will be retrieved from database once it is setup
+	var allFeedback = angerStrats.concat(disgustStrats, fearStrats, happinessStrats, sadnessStrats, surpriseStrats);
+
+	//An array of general coping strategies. Contains all coping strategies from above.
 	var generalStrats = angerStrats.concat(disgustStrats, fearStrats, happinessStrats, sadnessStrats, surpriseStrats);
 
 	//Returns an array of coping strategies for the user's latest mood
@@ -105,13 +106,17 @@ angular.module('starter.services', [])
 
 	//Returns an array of coping strategies that have worked in the past
 	function getGoodStrategies() {
-		var filtered = [];
+		var filtered = allFeedback;
+		/*  uncomment when we know how to get
+		 * whether or not a strategy is "good" or not.
+		 * FOr now, this funciton returns ALL coping strats.
 		allFeedback.forEach((feedback) => {
 			//If the user thought a coping strategy was good in the past, redisplay the coping strategy
-			if(feedback.response === 1) {
+			if(feedback.response || feedback.response === 1) {
 				filtered.push(feedback.copingStrategy);
 			}
 		})
+		*/
 		return filtered;
 	}
 
