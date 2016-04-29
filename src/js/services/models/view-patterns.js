@@ -1,5 +1,6 @@
 /* jshint esversion:6 */
-app.service('View Patterns', function() {
+app.service('ViewPatterns', function() {
+
   // Constructor for pattern objects, might delete
   function Pattern(keyword, origin, mood, intensity) {
     this.keyword = keyword;

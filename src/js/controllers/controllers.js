@@ -90,3 +90,12 @@ app.controller('GetHelpCtrl', function($scope, GetHelp) {
     $scope.specificStrats = GetHelp.specificStrategies();
   }
 });
+
+app.controller('LineCtrl', function($scope) {
+  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+  $scope.series = ['Angry', 'Happy'];
+  $scope.data = [
+    [0, 5, 7, 9, 6, 7, 8],
+    [0, 3, 3, 5, 4, 5, 5]
+  ];
+});
