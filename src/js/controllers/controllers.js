@@ -19,27 +19,35 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
 });
 
 app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
+  // Insert safety values.
+  $scope.preferences = {};
+
   $ionicPlatform.ready(function() {
     // initialize database 
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('preferences_table').then(
-        (result) => console.log("View result", result, result.rows.item(0)), 
-        (err) => console.log("View error", err)
+        (result) => {
+          old = result.rows[0].cells;
+          $scope.preferences.userName     = old[0];
+          $scope.preferences.password     = old[1];
+          $scope.preferences.helpContact  = old[2];
+          $scope.preferences.splashScreen = old[3];
+          $scope.preferences.reminderRate = old[4];
+        }, 
+        (err) => {
+          $scope.preferences.userName = "";
+          $scope.preferences.password = "";
+          $scope.preferences.helpContact = "";
+          $scope.preferences.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg";
+          $scope.preferences.reminderRate = Infinity;
+        }
       );
     })
   });
 
 
-  $scope.preferences = {};
-  $scope.preferences.userName = "TODO:  CALL TO DATABASE!!!!";
-  $scope.preferences.password = "TODO:  CALL TO DATABASE!!!!";
-  $scope.preferences.helpContact = "TODO:  CALL TO DATABASE!!!!";
-  $scope.preferences.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg"; //TODO:  Call to database!
-
   // Let the user select their reminder rate.
-  // Fetch previous state.
-  $scope.preferences.reminderRate = Infinity; //TODO:  Call to database!
   // Build a table of the reminder rates allowed.
   $scope.preferences.REMINDER_RATE_VALS = {};
   $scope.preferences.REMINDER_RATE_VALS["Twice A Day"] =     12 * 60 * 60 * 1000;
