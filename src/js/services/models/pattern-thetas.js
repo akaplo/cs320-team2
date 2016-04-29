@@ -1,5 +1,5 @@
 /* jshint esversion:6 */
-app.service('PatternThetas', function() {
+app.service('PatternThetas', function(sqlService) {
 
   function ThetaRow(key, word, happy_trigger_theta, sad_trigger_theta, happy_belief_theta, sad_belief_theta, happy_behavior_theta, sad_behavior_theta) {
     this.key = key;
@@ -58,10 +58,42 @@ app.service('PatternThetas', function() {
     );
   };
 
+  function getPatterns(word) {
+    return sqlService.executeQuery(
+      `INSERT OR IGNORE INTO pattern_features(id, word) VALUES((SELECT max(id) from pattern_features) + 1, ${word}) ` +
+      `SELECT * from pattern_features ` +
+      `WHERE word = ${word}`);
+  }
+
+  function getSize() {
+    return sqlService.executeQuery('SELECT max(id) FROM pattern_features');
+  }
+
+  function setThata(key, mood, theta) {
+    return sqlService.executeQuery('SELECT max(id) FROM pattern_features').then((size) => {
+      var origin;
+      if(key / size < 1) origin = 'trigger';
+      if(key / size < 2) origin = 'belief';
+      if(key / size < 3) origin = 'behavior';
+      key = key % size;
+      return sqlService.executeQuery(
+        `UPDATE pattern_features ` +
+        `SET ${mood}_${origin}_theta ` +
+        `WHERE id = ${key}`);
+    });
+  }
+
+  function moodThetas(mood) {
+    return Promise.all([
+      sqlService.executeQuery(`SELECT ${mood}_trigger_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_trigger_theta`])),
+      sqlService.executeQuery(`SELECT ${mood}_belief_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_belief_theta`])),
+      sqlService.executeQuery(`SELECT ${mood}_behavior_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_behavior_theta`]))]).then((arr) => arr.reduce((a, b) => a.concat(b)));
+  }
+
   return {
-    get_view_patterns_key_by_word: database.get_view_patterns_key_by_word,
-    get_view_patterns_size: database.get_view_patterns_size,
-    set_theta: database.set_theta,
-    get_mood_thetas: database.get_mood_thetas,
+    get_view_patterns_key_by_word: getPatterns,
+    get_view_patterns_size: getSize,
+    set_theta: setThata,
+    get_mood_thetas: moodThetas,
   };
 });

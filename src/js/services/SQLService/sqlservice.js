@@ -1,6 +1,6 @@
 /* jshint esversion:6 */
 app.factory('sqlService', function($cordovaSQLite) {
-	//define db instance 
+	//define db instance
 	var service = {}, db = null;
 
 	let popQrys = {};
@@ -16,13 +16,36 @@ app.factory('sqlService', function($cordovaSQLite) {
 		'CREATE TABLE pattern_features(\
 		id INTEGER PRIMARY KEY NOT NULL,\
 		word TEXT NOT NULL UNIQUE,\
-		happy_trigger_theta REAL NOT NULL DEFAULT 0,\
-		stressed_trigger_theta REAL NOT NULL DEFAULT 0,\
-		happy_belief_theta REAL NOT NULL DEFAULT 0,\
-		stressed_belief_theta REAL NOT NULL DEFAULT 0,\
-		happy_behavior_theta REAL NOT NULL DEFAULT 0,\
-		stressed_behavior_theta REAL NOT NULL DEFAULT 0)',
+		anger_trigger_theta REAL NOT NULL DEFAULT 0,\
+		disgust_trigger_theta REAL NOT NULL DEFAULT 0,\
+		fear_trigger_theta REAL NOT NULL DEFAULT 0,\
+		happiness_trigger_theta REAL NOT NULL DEFAULT 0,\
+		saddness_trigger_theta REAL NOT NULL DEFAULT 0,\
+		surprise_trigger_theta REAL NOT NULL DEFAULT 0,\
+		anger_belief_theta REAL NOT NULL DEFAULT 0,\
+		disgust_belief_theta REAL NOT NULL DEFAULT 0,\
+		fear_belief_theta REAL NOT NULL DEFAULT 0,\
+		happiness_belief_theta REAL NOT NULL DEFAULT 0,\
+		saddness_belief_theta REAL NOT NULL DEFAULT 0,\
+		surprise_belief_theta REAL NOT NULL DEFAULT 0,\
+		anger_behavior_theta REAL NOT NULL DEFAULT 0,\
+		disgust_behavior_theta REAL NOT NULL DEFAULT 0,\
+		fear_behavior_theta REAL NOT NULL DEFAULT 0,\
+		happiness_behavior_theta REAL NOT NULL DEFAULT 0,\
+		saddness_behavior_theta REAL NOT NULL DEFAULT 0,\
+		surprise_behavior_theta REAL NOT NULL DEFAULT 0)',
 	];
+
+	popQrys.patterns = [
+		'DROP TABLE IF EXISTS patterns',
+		'CREATE TABLE patterns(\
+		id INTEGER PRIMARY KEY NOT NULL,\
+  	word TEXT NOT NULL UNIQUE,\
+  	mood TEXT NOT NULL,\
+  	origin TEXT NOT NULL,\
+  	strength REAL NOT NULL DEFAULT 0)',
+	];
+
 	popQrys.feedback = [
 		'DROP TABLE IF EXISTS feedback',
 		'CREATE TABLE feedback( copingStrategy TEXT PRIMARY KEY, response INTEGER NOT NULL )',
@@ -46,7 +69,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		reminderRate INTEGER NOT NULL DEFAULT 86400000)',
 		`INSERT INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('John', 'password123' ,'idk@idk.com', 'http://vignette2.wikia.nocookie.net/thehungergames/images/4/48/Happy_cat.jpg/revision/latest?cb=20121008044759', 86400000)`
 	];
-	
+
 
 	const populate = () => {
 		return new Promise((resolve, reject) => {
@@ -54,6 +77,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 
 			db.sqlBatch([
 			  ...popQrys.pattern_features,
+				...popQrys.patterns,
 			  ...popQrys.mood_logs,
 			  ...popQrys.feedback,
 			  ...popQrys.preferences_table
@@ -70,7 +94,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		});
 	};
 
-	/* 
+	/*
 	** Opens a database connection and populates it with our data schemas
 	** Returns: Promise sucess(resultSet), error(error)
 	*/
@@ -88,7 +112,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		});
 	}
 
-	/* 
+	/*
 	** Returns all fields in a specified table
 	** Args: table ( name of a table, String )
 	** Returns: Promise sucess(resultSet), error(error)
@@ -103,7 +127,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		});
 	}
 
-	/* 
+	/*
 	** Executes query and returns result or an error object
 	** Args: qry ( an SQL query, String )
 	** Returns: Promise sucess(resultSet), error(error)
