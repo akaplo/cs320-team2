@@ -136,3 +136,11 @@ app.controller('LineCtrl', function($scope) {
     [0, 3, 3, 5, 4, 5, 5]
   ];
 });
+
+app.controller('TrackProgressCtrl', function($scope) {
+  $scope.moods = ['Happiness', 'Anger', 'Disgust', 'Fear', 'Saddness', 'Suprise'];
+});
+
+app.controller('ProgressDetailCtrl', function($scope, $stateParams) {
+  $scope.mood = $stateParams.mood;
+});

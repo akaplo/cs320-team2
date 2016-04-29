@@ -86,6 +86,24 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
         controller: 'GetHelpCtrl'
       }
     }
+  })
+  .state('tab.track-progress', {
+    url: '/track-progress',
+    views: {
+      'tab-track-progress': {
+        templateUrl: 'templates/tab-track-progress.html',
+        controller: 'TrackProgressCtrl'
+      }
+    }
+  })
+  .state('tab.progress-detail', {
+    url: '/progress-detail/:mood',
+    views: {
+      'tab-track-progress': {
+        templateUrl: 'templates/tab-progress-detail.html',
+        controller: 'ProgressDetailCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
