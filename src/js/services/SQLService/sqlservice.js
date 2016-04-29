@@ -113,11 +113,10 @@ app.factory('sqlService', function($cordovaSQLite) {
 	** Args: qry ( an SQL query, String )
 	** Returns: Promise sucess(resultSet), error(error)
 	*/
-	service.executeQuery = (qry, vals) => {
+	service.executeQuery = (qry) => {
 		return new Promise((resolve, reject) => {
 			if(db === null) reject("DB connection not initiated. Call init() before running queries.");
-			if (vals == null) vals = []
-			db.executeSql(qry, vals, (resultSet) => {
+			db.executeSql(qry, [], (resultSet) => {
 				resolve(resultSet);
 			}, (error) => reject(error));
 		});
