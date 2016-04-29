@@ -1,0 +1,21 @@
+<ion-view view-title="Get Help">
+  <ion-content>
+    <button class="button button-block button-energized" ng-click="retrieveSpecificStrategies()">
+      Get Specific Strategies
+    </button>
+    <button class="button button-block button-energized" ng-click="retrieveGoodStrategies()">
+      Get Good Strategies
+    </button>
+    <ion-list class="list card">
+      <ion-item class="item item-icon-left" ng-repeat="strat in goodStrats" ng-click="rate(strat)">
+        <ion-icon class="icon ion-ios-help"></ion-icon>
+        {{strat.name}}
+      </ion-item>
+      <ion-item class="item item-icon-left" ng-repeat="strat in specificStrats" ng-click="rate(strat)">
+        <ion-icon class="icon ion-ios-help"></ion-icon>
+        {{strat.name}}
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

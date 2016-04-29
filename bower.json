@@ -1,10 +1,11 @@
 {
-  "name": "HelloIonic",
+  "name": "mood-tracker",
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "dependencies": {
+    "ngCordova": "^0.1.26-alpha",
     "numericjs": "^1.2.6",
     "angular-chart.js": "^0.9.0",
     "Chart.js": "^1.1.1"

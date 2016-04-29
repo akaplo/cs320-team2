@@ -1,7 +1,10 @@
 {
-  "name": "moodTracker",
+  "name": "mood-tracker",
   "app_id": "",
   "gulpStartupTasks": [
-    "default"
+    "default",
+    "babel",
+    "sass",
+    "watch"
   ]
 }
