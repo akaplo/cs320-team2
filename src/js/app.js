@@ -78,7 +78,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
       }
     }
   })
-  
+
   .state('tab.get-help', {
     url: '/get-help',
     views: {
@@ -100,14 +100,13 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
   })
 
   .state('tab.progress-detail', {
-    url: '/track-progress/progress-detail',
+    url: '/progress-detail/:mood',
     views: {
-      'tab-progress-detail':{
+      menuContent: {
         templateUrl: 'templates/tab-progress-detail.html',
         controller: 'ProgressDetailCtrl'
       }
-    },
-    params: {mood: null}
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
