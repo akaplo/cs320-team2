@@ -69,6 +69,15 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
       }
     }
   })
+  .state('tab.patterns', {
+    url: '/patterns',
+    views: {
+      'tab-patterns': {
+        templateUrl: 'templates/tab-patterns.html',
+        controller: 'PatternsCtrl'
+      }
+    }
+  })
   .state('tab.get-help', {
     url: '/get-help',
     views: {
