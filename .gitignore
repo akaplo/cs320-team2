@@ -6,4 +6,4 @@ platforms/
 plugins/
 www/lib/
 www/js/app.min.js
-resources
+.DS_Store
