@@ -77,7 +77,7 @@ app.controller('AccountCtrl', function($scope) {
   };
 })
 
-app.controller('GetHelpCtrl', function($scope, GetHelp, $ionicPopup) {
+app.controller('GetHelpCtrl', function($scope, GetHelp, $ionicPopup, sqlService) {
   $scope.help = "no help yet yo";
   $scope.retrieveGoodStrategies = function () {
     console.log('called good');

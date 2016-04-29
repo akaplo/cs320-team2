@@ -34,10 +34,8 @@ app.factory('sqlService', function($cordovaSQLite) {
 		("Go to the gym", 0),\
 		("Call a family member or friend", 1),\
 		("Take a bath", 0),\
-		("Go to the gym", 0),\
 		("Go for a walk", 0),\
 		("Speak with a trusted family member about your day", 0),\
-		("Take a bath", 0),\
 		("Keep being happy!", 0),\
 		("Watch television", 1)'
 	];
