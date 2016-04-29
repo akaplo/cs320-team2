@@ -1,7 +1,7 @@
 app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     console.log("ionicPlatform ready");
-    // initialize database 
+    // initialize database
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('feedback').then(
@@ -10,7 +10,7 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
       );
 
       sqlService.executeQuery('SELECT * FROM mood_logs').then(
-        (result) => console.log("Query result", result.rows.item(0)), 
+        (result) => console.log("Query result", result.rows.item(0)),
         (err) => console.log("Query error", err)
       );
 
@@ -20,11 +20,11 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
 
 app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // initialize database 
+    // initialize database
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('preferences_table').then(
-        (result) => console.log("View result", result, result.rows.item(0)), 
+        (result) => console.log("View result", result, result.rows.item(0)),
         (err) => console.log("View error", err)
       );
     })
