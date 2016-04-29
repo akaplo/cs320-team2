@@ -30,9 +30,6 @@ app.factory('GetHelp', function(sqlService) {
 	}),
 		(err) => console.log("Query error", err)
 
-
-
-
 	//Coping strategies for anger
 	var angerStrats = [
 		{name:"Go to the gym", id: 0},
@@ -111,8 +108,18 @@ app.factory('GetHelp', function(sqlService) {
 	}
 
 	//Returns an array of coping strategies that have worked in the past
-	function getGoodStrategies() {
-		var filtered = allFeedback;
+	function getGoodStrategies(cb) {
+		var strats = []
+		sqlService.executeQuery('SELECT * FROM feedback').then(function(result){
+			for (var i = 0; i < result.rows.length; i++) {
+				console.log("Query result", result.rows.item(i));
+				if (result.rows.item(i).response === 1) {
+					cb(result.rows.item(i));
+				}
+			}
+			return strats;
+		}),
+			(err) => console.log("Query error", err)
 		/*  uncomment when we know how to get
 		 * whether or not a strategy is "good" or not.
 		 * FOr now, this funciton returns ALL coping strats.
@@ -123,7 +130,6 @@ app.factory('GetHelp', function(sqlService) {
 			}
 		})
 		*/
-		return filtered;
 	}
 
 	//Return general coping strategies, specific coping strategies, and coping strategies that have worked in the past

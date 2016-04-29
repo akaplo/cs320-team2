@@ -28,8 +28,8 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 	popQrys.feedback = [
 		'DROP TABLE IF EXISTS feedback',
-		'CREATE TABLE feedback( copingStrategy TEXT PRIMARY KEY, response INTEGER NOT NULL )',
-		'INSERT INTO feedback (copingStrategy, response) VALUES\
+		'CREATE TABLE feedback( name TEXT PRIMARY KEY, response INTEGER NOT NULL )',
+		'INSERT INTO feedback (name, response) VALUES\
 		("Watch Spongebob", 1),\
 		("Go to the gym", 0),\
 		("Call a family member or friend", 1),\
