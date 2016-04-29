@@ -1,30 +1,29 @@
 app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
   // Insert safety values.
   $scope.preferences = {};
-
-//  $ionicPlatform.ready(function() {
-//    // initialize database 
-//    sqlService.init().then((res) => {
-//      // run a view query
-//      sqlService.viewTable('preferences_table').then(
-//        (result) => {
-//          old = result.rows[0].cells;
-//          $scope.preferences.userName     = old[0];
-//          $scope.preferences.password     = old[1];
-//          $scope.preferences.helpContact  = old[2];
-//          $scope.preferences.splashScreen = old[3];
-//          $scope.preferences.reminderRate = old[4];
-//        }, 
-//        (err) => {
-//          $scope.preferences.userName = "";
-//          $scope.preferences.password = "";
-//          $scope.preferences.helpContact = "";
-//          $scope.preferences.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg";
-//          $scope.preferences.reminderRate = Infinity;
-//        }
-//      );
-//    })
-//  });
+  $ionicPlatform.ready(function() {
+    // initialize database 
+    sqlService.init().then((res) => {
+      // run a view query
+      sqlService.viewTable('preferences_table').then(
+        (result) => {
+          old = result.rows[0].cells;
+          $scope.preferences.userName     = old[0];
+          $scope.preferences.password     = old[1];
+          $scope.preferences.helpContact  = old[2];
+          $scope.preferences.splashScreen = old[3];
+          $scope.preferences.reminderRate = old[4];
+        }, 
+        (err) => {
+          $scope.preferences.userName = "";
+          $scope.preferences.password = "";
+          $scope.preferences.helpContact = "";
+          $scope.preferences.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg";
+          $scope.preferences.reminderRate = Infinity;
+        }
+      );
+    })
+  });
 
 
   // Let the user select their reminder rate.
