@@ -81,10 +81,12 @@ app.controller('GetHelpCtrl', function($scope, GetHelp) {
   $scope.help = "no help yet yo";
   $scope.retrieveGoodStrategies = function () {
     console.log('called good');
+    $scope.specificStrats = null;
     $scope.goodStrats = GetHelp.pastStrategies();
   };
   $scope.retrieveSpecificStrategies = function () {
     console.log('called specific');
+    $scope.goodStrats = null;
     $scope.specificStrats = GetHelp.specificStrategies();
   }
 });
