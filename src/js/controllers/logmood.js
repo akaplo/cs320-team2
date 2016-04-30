@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
     })
   });
   
-  $scope.logmood = {
+  $scope.moodInput = {
   $scope.moods = [
     {id:'1', name:'Anger'},
     {id:'2', name:'Disgust'},
@@ -21,7 +21,9 @@ angular.module('starter.controllers', [])
     {id:'5', name:'Sadness'},
     {id:'6', name:'Surprise'}
   ];
-
+};
+  
+  $scope.intensityInput= {
   $scope.moodIntensity = [
       {id:'intensity1', name:'1 - Bad'};
       {id:'intensity2', name:'2 - Not OK'};
@@ -30,6 +32,7 @@ angular.module('starter.controllers', [])
       {id:'intensity5', name:'5 - Excellent'};
   ];
 };
+
 
   $scope.belief = element(by.model('inbelief'));
   $scope.behavior = element(by.model('inbehavior'));
