@@ -119,7 +119,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 					return new Promise((resolve, reject) => {
 						if(db === null) reject("DB connection not initiated. Call int() before running queries.");
 
-						db.executeSql(`INSERT INTO table (mood, intensity, trigger, behavior, belief) VALUES (c_mood, c_intensity,c_trigger, c_behavior, c_belief)`,, [], (resultSet) => {
+						db.executeSql(`INSERT INTO ${table} (mood, intensity, trigger, behavior, belief) VALUES (${c_mood}, ${c_intensity}, ${c_trigger}, ${c_behavior}, ${c_belief})`, [], (resultSet) => {
 							resolve();
 						}, (error) => reject(error));
 					});
