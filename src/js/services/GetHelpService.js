@@ -27,7 +27,7 @@ app.factory('GetHelp', function(sqlService) {
 	sqlService.executeQuery('SELECT * FROM mood_logs').then(function(result){
 		//Get the latest mood log. Latest mood log is at the (length - 1)th row
 		console.log("Query result", result.rows.item(result.rows.length - 1))
-		latestMoodLog.mood = result.rows.item(1).id;
+		latestMoodLog.mood = result.rows.item(result.rows.length - 1).id;
 	}),
 		(err) => console.log("Query error", err)
 
