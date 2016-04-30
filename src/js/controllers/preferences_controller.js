@@ -1,30 +1,18 @@
 app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
-  // Insert safety values.
+  // Set values to that of last session.
   $scope.preferences = {};
-  $ionicPlatform.ready(function() {
-    // initialize database 
-    sqlService.init().then((res) => {
-      // run a view query
-      sqlService.viewTable('preferences_table').then(
-        (result) => {
-          old = result.rows[0].cells;
-          $scope.preferences.userName     = old[0];
-          $scope.preferences.password     = old[1];
-          $scope.preferences.helpContact  = old[2];
-          $scope.preferences.splashScreen = old[3];
-          $scope.preferences.reminderRate = old[4];
-        }, 
-        (err) => {
-          $scope.preferences.userName = "";
-          $scope.preferences.password = "";
-          $scope.preferences.helpContact = "";
-          $scope.preferences.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg";
-          $scope.preferences.reminderRate = Infinity;
-        }
-      );
-    })
+  var database_query = 'SELECT * FROM preferences_table';
+  console.log(`Execute: ${database_query}`); // TODO:  Remove after debug.
+  sqlService.executeQuery(database_query).then(function(result){
+    // TODO:  I don't think we reach here.
+    console.log('Setting stuff to initial values!');
+    old = result.rows[0].cells;
+    $scope.preferences.userName     = old[0];
+    $scope.preferences.password     = old[1];
+    $scope.preferences.helpContact  = old[2];
+    $scope.preferences.splashScreen = old[3];
+    $scope.preferences.reminderRate = old[4];
   });
-
 
   // Let the user select their reminder rate.
   // Build a table of the reminder rates allowed.
@@ -45,15 +33,20 @@ app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
 
   // Build functions.
   $scope.preferences.apply = function() {
-    console.log('TODO:  Put in database userName = ' + $scope.preferences.userName);
-    console.log('TODO:  Put in database password = ' + $scope.preferences.password);
-    console.log('TODO:  Put in database contact = ' + $scope.preferences.helpContact);
-    console.log('TODO:  Put in database splashScreen = ' + $scope.preferences.splashScreen);
-    console.log('TODO:  Put in database reminder rate = ' + $scope.preferences.REMINDER_RATE_VALS[$scope.preferences.selectedReminderString]);
+    var database_query = 'DELETE * FROM preferences_table';
+    console.log(`Execute: ${database_query}`); // TODO:  Remove after debug.
+    sqlService.executeQuery(database_query);
+
+    database_query = `INSERT INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('${$scope.preferences.userName}', '${$scope.preferences.password}' ,'${$scope.preferences.helpContact}', '${$scope.preferences.splashScreen}', ${$scope.preferences.REMINDER_RATE_VALS[$scope.preferences.selectedReminderString]})`;
+    console.log(`Execute: ${database_query}`); // TODO:  Remove after debug.
+    sqlService.executeQuery(database_query);
   }
   $scope.preferences.deleteAll = function() {
     if(confirm('Are you sure?  If you delete your mood logs, they are gone.  This action cannot be undone!')) {
-              console.log('TODO:  Delete all mood logs in the database!');
+      // TODO:  Make sure this happens!
+      database_query = 'DELETE * FROM mood_logs';
+      console.log(`Execute: ${database_query}`); // TODO:  Remove after debug.
+      sqlService.executeQuery(database_query);
     }
   }
 });
