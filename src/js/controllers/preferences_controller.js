@@ -13,6 +13,7 @@ app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
     $scope.preferences.splashScreen = old[3];
     $scope.preferences.reminderRate = old[4];
   });
+  console.log('Got out of executeQuery');
 
   // Let the user select their reminder rate.
   // Build a table of the reminder rates allowed.
