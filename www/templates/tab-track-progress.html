@@ -1,7 +1,7 @@
 <ion-view view-title="Track Progress">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="mood in moods" href="#/tab/progress-detail/{{mood}}">
+      <ion-item ng-repeat="mood in moods" href="#/tab/progress-detail/{{mood.name}}">
         <p>{{mood.name}}</p>
         <p>{{mood.detail}}</p>
       </ion-item>

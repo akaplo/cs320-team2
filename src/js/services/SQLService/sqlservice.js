@@ -1,4 +1,4 @@
-/* jshint esversion:6 */
+	/* jshint esversion:6 */
 app.factory('sqlService', function($cordovaSQLite) {
 	//define db instance
 	var service = {}, db = null;

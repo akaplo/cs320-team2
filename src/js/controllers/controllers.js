@@ -142,10 +142,17 @@ app.controller('TrackProgressCtrl', function($scope) {
   {name: 'Disgust', detail: 'Logged 15 times'},
   {name: 'Fear', detail: 'Logged 20 times'},
   {name: 'Saddness', detail: 'Logged 25 times'},
-  {name: 'Anger', detail: 'Logged 30 times'},
+  {name: 'Angry', detail: 'Logged 30 times'},
   {name: 'Suprise', detail: 'Logged 40 times'}];
 });
 
 app.controller('ProgressDetailCtrl', function($scope, $stateParams) {
   $scope.mood = $stateParams.mood;
+  $scope.showMood = function(name){
+    sqlService.init();
+    sqlService.executeQuery('SELECT * FROM mood_logs WHERE name=${name.toLowerCase}').then(
+      (result) => console.log("Query result", result.rows.item(0)),
+      (err) => console.log("Query error", err)
+    );
+  };
 });
