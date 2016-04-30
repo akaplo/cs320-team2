@@ -1,0 +1,32 @@
+<ion-view view-title="LogMood">
+  <ion-content class="padding">
+    <h2>Log Mood</h2>
+    <div ng-controller = "LogMoodCtrl">
+    <form name = "LogMoodForm">
+      <label for="selectMood"> Select Mood: </label>
+        <select ng-model ="moodInput.repeatSelect">
+          <option ng-repeat="option in moodInput.moods" value="{{option.id}}">{{option.name}}</option>
+          </select>
+      </label>
+      <label for="moodIntensity"> Select Mood Intensity: </label>
+        <select ng-model ="intensityInput.repeatSelect">
+          <option ng-repeat="option in intensityInput.moodIntensity" value="{{option.id}}">{{option.name}}</option>
+          </select>
+      </label>
+      <label>Trigger:
+        <input type="text" ng-model="intrigger">
+      </label>
+      <label>Behavior:
+        <input type="text" ng-model="inbehavior">
+      </label>
+      <label>Belief:
+        <input type="text" ng-model="inbelief">
+      </label>
+      </label>
+      <button name="submit" ng-click="submit()">
+        Submit
+      </button>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>
