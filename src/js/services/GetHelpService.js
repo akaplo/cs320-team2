@@ -25,7 +25,8 @@ app.factory('GetHelp', function(sqlService) {
 	};
 //Get all the mood logs?
 	sqlService.executeQuery('SELECT * FROM mood_logs').then(function(result){
-		console.log("Query result", result.rows.item(1))
+		//Get the latest mood log. Latest mood log is at the (length - 1)th row
+		console.log("Query result", result.rows.item(result.rows.length - 1))
 		latestMoodLog.mood = result.rows.item(1).id;
 	}),
 		(err) => console.log("Query error", err)
@@ -44,26 +45,26 @@ app.factory('GetHelp', function(sqlService) {
 
 	//Coping strategies for fear
 	var fearStrats = [
-		"Call a family member or friend",
-		"Surround yourself with friends"
+		{name: "Call a family member or friend", id: 0},
+		{name: "Surround yourself with friends", id: 1}
 	];
 
 	//Coping strategies for happiness
 	var happinessStrats = [
-		"Keep being happy!",
-		"Continue doing what made you happy in the first place!"
+		{name: "Keep being happy!", id: 0},
+		{name: "Continue doing what made you happy in the first place!", id: 1}
 	];
 
 	//Coping strategies for sadness
 	var sadnessStrats = [
-		"Eat ice cream",
-		"Watch Spongebob"
+		{name: "Eat ice cream", id: 0},
+		{name: "Watch Spongebob", id: 1}
 	];
 
 	//Coping strategies for surprise
 	var surpriseStrats = [
-		"Speak with a friend about your current situation",
-		"Watch television"
+		{name: "Speak with a friend about your current situation", id: 0},
+		{name: "Watch television", id: 1}
 	];
 
 	//Get all feedback about coping strategies
