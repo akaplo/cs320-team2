@@ -1,6 +1,6 @@
 /* jshint esversion:6 */
 app.factory('sqlService', function($cordovaSQLite) {
-	//define db instance 
+	//define db instance
 	var service = {}, db = null;
 
 	let popQrys = {};
@@ -8,7 +8,10 @@ app.factory('sqlService', function($cordovaSQLite) {
 	popQrys.mood_logs = [
 		'DROP TABLE IF EXISTS mood_logs',
 		'CREATE TABLE mood_logs(id INTEGER PRIMARY KEY NOT NULL,\
-		mood TEXT NOT NULL, intensity INTEGER NOT NULL, trigger TEXT NOT NULL, behavior TEXT NOT NULL, belief TEXT NOT NULL)'
+		mood TEXT NOT NULL, intensity INTEGER NOT NULL, trigger TEXT NOT NULL, behavior TEXT NOT NULL, belief TEXT NOT NULL)',
+		'INSERT INTO mood_logs (id, mood, intensity, trigger, behavior, belief) VALUES\
+		(0, "angry", "10", "gordon anderson", "bought wrench", "wrenches fix stuff"),\
+		(1, "disgust", "6", "gordon anderson", "bought wrench", "wrenches fix stuff")'
 	];
 
 	popQrys.pattern_features = [
@@ -25,12 +28,14 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 	popQrys.feedback = [
 		'DROP TABLE IF EXISTS feedback',
-		'CREATE TABLE feedback( copingStrategy TEXT PRIMARY KEY, response INTEGER NOT NULL )',
-		'INSERT INTO feedback (copingStrategy, response) VALUES\
+		'CREATE TABLE feedback( name TEXT PRIMARY KEY, response INTEGER NOT NULL )',
+		'INSERT INTO feedback (name, response) VALUES\
 		("Watch Spongebob", 1),\
 		("Go to the gym", 0),\
 		("Call a family member or friend", 1),\
 		("Take a bath", 0),\
+		("Go for a walk", 0),\
+		("Speak with a trusted family member about your day", 0),\
 		("Keep being happy!", 0),\
 		("Watch television", 1)'
 	];
@@ -46,7 +51,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		reminderRate INTEGER NOT NULL DEFAULT 86400000)',
 		`INSERT INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('John', 'password123' ,'idk@idk.com', 'http://vignette2.wikia.nocookie.net/thehungergames/images/4/48/Happy_cat.jpg/revision/latest?cb=20121008044759', 86400000)`
 	];
-	
+
 
 	const populate = () => {
 		return new Promise((resolve, reject) => {
@@ -70,7 +75,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		});
 	};
 
-	/* 
+	/*
 	** Opens a database connection and populates it with our data schemas
 	** Returns: Promise sucess(resultSet), error(error)
 	*/
@@ -88,7 +93,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		});
 	}
 
-	/* 
+	/*
 	** Returns all fields in a specified table
 	** Args: table ( name of a table, String )
 	** Returns: Promise sucess(resultSet), error(error)
@@ -103,7 +108,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		});
 	}
 
-	/* 
+	/*
 	** Executes query and returns result or an error object
 	** Args: qry ( an SQL query, String )
 	** Returns: Promise sucess(resultSet), error(error)
@@ -111,7 +116,6 @@ app.factory('sqlService', function($cordovaSQLite) {
 	service.executeQuery = (qry) => {
 		return new Promise((resolve, reject) => {
 			if(db === null) reject("DB connection not initiated. Call init() before running queries.");
-
 			db.executeSql(qry, [], (resultSet) => {
 				resolve(resultSet);
 			}, (error) => reject(error));
