@@ -150,7 +150,7 @@ app.controller('ProgressDetailCtrl', function($scope, $stateParams) {
   $scope.mood = $stateParams.mood.toLowerCase();
   $scope.showMood = function(name){
     sqlService.init();
-    sqlService.executeQuery('SELECT * FROM mood_logs WHERE name=${name}').then(
+    sqlService.executeQuery(`SELECT * FROM mood_logs WHERE name=${name}`).then(
       (result) => console.log("Query result", result.rows.item(0)),
       (err) => console.log("Query error", err)
     );
