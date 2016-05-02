@@ -124,11 +124,14 @@ app.factory('sqlService', function($cordovaSQLite) {
 	*/
 	service.viewTable = (table) => {
 		return new Promise((resolve, reject) => {
-			if(db === null) reject("DB connection not initiated. Call init() before running queries.");
-
-			db.executeSql(`SELECT * FROM ${table}`, [], (resultSet) => {
-				resolve(resultSet);
-			}, (error) => reject(error));
+			const viewTable = () => {
+				db.executeSql(`SELECT * FROM ${table}`, [], (resultSet) => {
+					resolve(resultSet);
+				}, (error) => reject(error));
+			}
+			if(db === null){
+				service.init().then((res) => viewTable(), (err) => reject(err));
+			} else return viewTable();
 		});
 	}
 
@@ -139,10 +142,14 @@ app.factory('sqlService', function($cordovaSQLite) {
 	*/
 	service.executeQuery = (qry) => {
 		return new Promise((resolve, reject) => {
-			if(db === null) reject("DB connection not initiated. Call init() before running queries.");
-			db.executeSql(qry, [], (resultSet) => {
-				resolve(resultSet);
-			}, (error) => reject(error));
+			const executeQuery = () => {
+				db.executeSql(qry, [], (resultSet) => {
+					resolve(resultSet);
+				}, (error) => reject(error));
+			}
+			if(db === null){
+				service.init().then((res) => viewTable(), (err) => reject(err));
+			} else return executeQuery();
 		});
 	}
 
