@@ -146,13 +146,27 @@ app.controller('TrackProgressCtrl', function($scope) {
                   'Suprise'];
 });
 
-app.controller('ProgressDetailCtrl', function($scope, $stateParams) {
+app.controller('ProgressDetailCtrl', function($scope, $stateParams, $ionicPlatform, sqlService) {
+  $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  $scope.series = ['Angry', 'Happy'];
+  $scope.data = [
+    [0, 5, 7, 9, 6, 7, 8],
+    [0, 3, 3, 5, 4, 5, 5]
+  ];
+
   $scope.mood = $stateParams.mood.toLowerCase();
-  $scope.showMood = function(name){
-    sqlService.init();
-    sqlService.executeQuery(`SELECT * FROM mood_logs WHERE name=${name}`).then(
-      (result) => console.log("Query result", result.rows.item(0)),
-      (err) => console.log("Query error", err)
-    );
+
+  const showMood = (name) => {
+    $ionicPlatform.ready(function(){
+        sqlService.init().then((res) => {
+          sqlService.executeQuery(`SELECT * FROM mood_logs WHERE name=${name}`).then(
+            (result) => {
+              console.log("Query result", result.rows.item(0))
+            },
+            (err) => console.log("Query error", err)
+          );
+        });
+    });
   };
+  showMood($scope.mood);
 });
