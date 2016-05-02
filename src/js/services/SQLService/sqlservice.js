@@ -42,10 +42,11 @@ app.factory('sqlService', function($cordovaSQLite) {
 		// 'DROP TABLE IF EXISTS patterns',
 		'CREATE TABLE patterns(\
 		id INTEGER PRIMARY KEY NOT NULL,\
-  	word TEXT NOT NULL UNIQUE,\
-  	mood TEXT NOT NULL,\
-  	origin TEXT NOT NULL,\
-  	strength REAL NOT NULL DEFAULT 0)',
+	  	word TEXT NOT NULL UNIQUE,\
+	  	mood TEXT NOT NULL,\
+	  	origin TEXT NOT NULL,\
+	  	strength REAL NOT NULL DEFAULT 0)',
+	  	`INSERT INTO patterns (word, mood, origin, strength) VALUES ('ice cream', 'happy', 'trigger', 0)`
 	];
 
 	popQrys.feedback = [
