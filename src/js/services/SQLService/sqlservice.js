@@ -148,7 +148,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 				}, (error) => reject(error));
 			}
 			if(db === null){
-				service.init().then((res) => viewTable(), (err) => reject(err));
+				service.init().then((res) => executeQuery(), (err) => reject(err));
 			} else return executeQuery();
 		});
 	}
