@@ -1,7 +1,5 @@
-angular.module('starter.services', [])
+app.factory('GetHelp', function(sqlService) {
 
-.factory('GetHelp', function() {
-	
 	/* Proposed IDs associated with moods
 	Mood        ID
 	Anger		0
@@ -22,25 +20,26 @@ angular.module('starter.services', [])
 	}
 	*/
 
-	//Get latest mood log
-	//Will be retrieved from database once it is setup
-	var latestMoodLog = null;
-
-	//Get all feedback about coping strategies
-	//Assume allFeedback is an array of feedback objects
-	//Will be retrieved from database once it is setup
-	var allFeedback = null;
+	var latestMoodLog = {
+		mood: 5
+	};
+//Get all the mood logs?
+	sqlService.executeQuery('SELECT * FROM mood_logs').then(function(result){
+		console.log("Query result", result.rows.item(1))
+		latestMoodLog.mood = result.rows.item(1).id;
+	}),
+		(err) => console.log("Query error", err)
 
 	//Coping strategies for anger
 	var angerStrats = [
-		"Go to the gym",
-		"Go for a walk"
+		{name:"Go to the gym", id: 0},
+		{name:"Go for a walk", id: 1}
 	];
 
 	//Coping strategies for disgust
 	var disgustStrats = [
-		"Speak with a trusted family member about your day",
-		"Take a bath"
+		{name: "Speak with a trusted family member about your day", id: 0},
+		{name:"Take a bath", id: 1}
 	];
 
 	//Coping strategies for fear
@@ -67,7 +66,12 @@ angular.module('starter.services', [])
 		"Watch television"
 	];
 
-	//An array of general coping strategies. Contains all coping strategies from above
+	//Get all feedback about coping strategies
+	//Assume allFeedback is an array of feedback objects
+	//Will be retrieved from database once it is setup
+	var allFeedback = angerStrats.concat(disgustStrats, fearStrats, happinessStrats, sadnessStrats, surpriseStrats);
+
+	//An array of general coping strategies. Contains all coping strategies from above.
 	var generalStrats = angerStrats.concat(disgustStrats, fearStrats, happinessStrats, sadnessStrats, surpriseStrats);
 
 	//Returns an array of coping strategies for the user's latest mood
@@ -104,15 +108,28 @@ angular.module('starter.services', [])
 	}
 
 	//Returns an array of coping strategies that have worked in the past
-	function getGoodStrategies() {
-		var filtered = [];
+	function getGoodStrategies(cb) {
+		var strats = []
+		sqlService.executeQuery('SELECT * FROM feedback').then(function(result){
+			for (var i = 0; i < result.rows.length; i++) {
+				console.log("Query result", result.rows.item(i));
+				if (result.rows.item(i).response === 1) {
+					cb(result.rows.item(i));
+				}
+			}
+			return strats;
+		}),
+			(err) => console.log("Query error", err)
+		/*  uncomment when we know how to get
+		 * whether or not a strategy is "good" or not.
+		 * FOr now, this funciton returns ALL coping strats.
 		allFeedback.forEach((feedback) => {
 			//If the user thought a coping strategy was good in the past, redisplay the coping strategy
-			if(feedback.response === 1) {
+			if(feedback.response || feedback.response === 1) {
 				filtered.push(feedback.copingStrategy);
 			}
 		})
-		return filtered;
+		*/
 	}
 
 	//Return general coping strategies, specific coping strategies, and coping strategies that have worked in the past

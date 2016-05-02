@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('starter', ['ionic', 'ngCordova'])
+var app = angular.module('starter', ['ionic', 'ngCordova', 'chart.js'])
 
 .run(($ionicPlatform) => {
   $ionicPlatform.ready(function() {
@@ -84,6 +84,15 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
       'tab-get-help': {
         templateUrl: 'templates/tab-get-help.html',
         controller: 'GetHelpCtrl'
+      }
+    }
+  })
+  .state('tab.graph', {
+    url: '/graph',
+    views: {
+      'tab-graph': {
+        templateUrl: 'templates/tab-graph.html',
+        controller: 'LineCtrl'
       }
     }
   });
