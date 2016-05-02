@@ -69,7 +69,7 @@ app.service('PatternThetas', function(sqlService) {
     return sqlService.executeQuery('SELECT max(id) FROM pattern_features');
   }
 
-  function setThata(key, mood, theta) {
+  function setTheta(key, mood, theta) {
     return sqlService.executeQuery('SELECT max(id) FROM pattern_features').then((size) => {
       var origin;
       if(key / size < 1) origin = 'trigger';
@@ -93,7 +93,7 @@ app.service('PatternThetas', function(sqlService) {
   return {
     get_view_patterns_key_by_word: getPatterns,
     get_view_patterns_size: getSize,
-    set_theta: setThata,
+    set_theta: setTheta,
     get_mood_thetas: moodThetas,
   };
 });

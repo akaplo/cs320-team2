@@ -5,7 +5,7 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
     sqlService.init().then((res) => {
       // run a view query
       sqlService.viewTable('feedback').then(
-        (result) => console.log("View result", result.rows.item(1)), 
+        (result) => console.log("View result", result.rows.item(1)),
         (err) => console.log("View error", err)
       );
 
