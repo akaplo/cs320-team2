@@ -47,6 +47,7 @@ app.factory('sqlService', function($cordovaSQLite) {
   	mood TEXT NOT NULL,\
   	origin TEXT NOT NULL,\
   	strength REAL NOT NULL DEFAULT 0)',
+		`INSERT INTO patterns(word, mood, origin, strength) VALUES("icecream", "happy", "trigger", 0)`
 	];
 
 	popQrys.feedback = [
