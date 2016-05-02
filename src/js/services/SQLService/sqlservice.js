@@ -19,13 +19,36 @@ app.factory('sqlService', function($cordovaSQLite) {
 		'CREATE TABLE pattern_features(\
 		id INTEGER PRIMARY KEY NOT NULL,\
 		word TEXT NOT NULL UNIQUE,\
-		happy_trigger_theta REAL NOT NULL DEFAULT 0,\
-		stressed_trigger_theta REAL NOT NULL DEFAULT 0,\
-		happy_belief_theta REAL NOT NULL DEFAULT 0,\
-		stressed_belief_theta REAL NOT NULL DEFAULT 0,\
-		happy_behavior_theta REAL NOT NULL DEFAULT 0,\
-		stressed_behavior_theta REAL NOT NULL DEFAULT 0)',
+		anger_trigger_theta REAL NOT NULL DEFAULT 0,\
+		disgust_trigger_theta REAL NOT NULL DEFAULT 0,\
+		fear_trigger_theta REAL NOT NULL DEFAULT 0,\
+		happiness_trigger_theta REAL NOT NULL DEFAULT 0,\
+		saddness_trigger_theta REAL NOT NULL DEFAULT 0,\
+		surprise_trigger_theta REAL NOT NULL DEFAULT 0,\
+		anger_belief_theta REAL NOT NULL DEFAULT 0,\
+		disgust_belief_theta REAL NOT NULL DEFAULT 0,\
+		fear_belief_theta REAL NOT NULL DEFAULT 0,\
+		happiness_belief_theta REAL NOT NULL DEFAULT 0,\
+		saddness_belief_theta REAL NOT NULL DEFAULT 0,\
+		surprise_belief_theta REAL NOT NULL DEFAULT 0,\
+		anger_behavior_theta REAL NOT NULL DEFAULT 0,\
+		disgust_behavior_theta REAL NOT NULL DEFAULT 0,\
+		fear_behavior_theta REAL NOT NULL DEFAULT 0,\
+		happiness_behavior_theta REAL NOT NULL DEFAULT 0,\
+		saddness_behavior_theta REAL NOT NULL DEFAULT 0,\
+		surprise_behavior_theta REAL NOT NULL DEFAULT 0)',
 	];
+
+	popQrys.patterns = [
+		'DROP TABLE IF EXISTS patterns',
+		'CREATE TABLE patterns(\
+		id INTEGER PRIMARY KEY NOT NULL,\
+  	word TEXT NOT NULL UNIQUE,\
+  	mood TEXT NOT NULL,\
+  	origin TEXT NOT NULL,\
+  	strength REAL NOT NULL DEFAULT 0)',
+	];
+
 	popQrys.feedback = [
 		'DROP TABLE IF EXISTS feedback',
 		'CREATE TABLE feedback( name TEXT PRIMARY KEY, response INTEGER NOT NULL )',
@@ -59,6 +82,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 
 			db.sqlBatch([
 			  ...popQrys.pattern_features,
+				...popQrys.patterns,
 			  ...popQrys.mood_logs,
 			  ...popQrys.feedback,
 			  ...popQrys.preferences_table
