@@ -6,7 +6,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 	let popQrys = {};
 
 	popQrys.mood_logs = [
-		'DROP TABLE IF EXISTS mood_logs',
+		// 'DROP TABLE IF EXISTS mood_logs',
 		'CREATE TABLE mood_logs(id INTEGER PRIMARY KEY NOT NULL,\
 		mood TEXT NOT NULL, intensity INTEGER NOT NULL, trigger TEXT NOT NULL, behavior TEXT NOT NULL, belief TEXT NOT NULL)',
 		'INSERT INTO mood_logs (id, mood, intensity, trigger, behavior, belief) VALUES\
@@ -15,7 +15,6 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 
 	popQrys.pattern_features = [
-		'DROP TABLE IF EXISTS pattern_features',
 		'CREATE TABLE pattern_features(\
 		id INTEGER PRIMARY KEY NOT NULL,\
 		word TEXT NOT NULL UNIQUE,\
@@ -40,7 +39,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 
 	popQrys.patterns = [
-		'DROP TABLE IF EXISTS patterns',
+		// 'DROP TABLE IF EXISTS patterns',
 		'CREATE TABLE patterns(\
 		id INTEGER PRIMARY KEY NOT NULL,\
   	word TEXT NOT NULL UNIQUE,\
@@ -50,7 +49,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 
 	popQrys.feedback = [
-		'DROP TABLE IF EXISTS feedback',
+		// 'DROP TABLE IF EXISTS feedback',
 		'CREATE TABLE feedback( name TEXT PRIMARY KEY, response INTEGER NOT NULL )',
 		'INSERT INTO feedback (name, response) VALUES\
 		("Watch Spongebob", 1),\
@@ -64,7 +63,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 
 	popQrys.preferences_table = [
-		'DROP TABLE IF EXISTS preferences_table',
+		// 'DROP TABLE IF EXISTS preferences_table',
 		'CREATE TABLE preferences_table(\
 		id INTEGER PRIMARY KEY NOT NULL,\
 		name TEXT NOT NULL,\
@@ -124,11 +123,14 @@ app.factory('sqlService', function($cordovaSQLite) {
 	*/
 	service.viewTable = (table) => {
 		return new Promise((resolve, reject) => {
-			if(db === null) reject("DB connection not initiated. Call init() before running queries.");
-
-			db.executeSql(`SELECT * FROM ${table}`, [], (resultSet) => {
-				resolve(resultSet);
-			}, (error) => reject(error));
+			const viewTable = () => {
+				db.executeSql(`SELECT * FROM ${table}`, [], (resultSet) => {
+					resolve(resultSet);
+				}, (error) => reject(error));
+			}
+			if(db === null){
+				service.init().then((res) => viewTable(), (err) => reject(err));
+			} else return viewTable();
 		});
 	}
 
@@ -139,10 +141,14 @@ app.factory('sqlService', function($cordovaSQLite) {
 	*/
 	service.executeQuery = (qry) => {
 		return new Promise((resolve, reject) => {
-			if(db === null) reject("DB connection not initiated. Call init() before running queries.");
-			db.executeSql(qry, [], (resultSet) => {
-				resolve(resultSet);
-			}, (error) => reject(error));
+			const executeQuery = () => {
+				db.executeSql(qry, [], (resultSet) => {
+					resolve(resultSet);
+				}, (error) => reject(error));
+			}
+			if(db === null){
+				service.init().then((res) => viewTable(), (err) => reject(err));
+			} else return executeQuery();
 		});
 	}
 
