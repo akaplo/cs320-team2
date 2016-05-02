@@ -9,7 +9,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		// 'DROP TABLE IF EXISTS mood_logs',
 		'CREATE TABLE IF NOT EXISTS mood_logs(id INTEGER PRIMARY KEY NOT NULL,\
 		mood TEXT NOT NULL, intensity INTEGER NOT NULL, trigger TEXT NOT NULL, behavior TEXT NOT NULL, belief TEXT NOT NULL)',
-		'INSERT INTO mood_logs (id, mood, intensity, trigger, behavior, belief) VALUES\
+		'INSERT OR REPLACE INTO mood_logs (id, mood, intensity, trigger, behavior, belief) VALUES\
 		(0, "angry", "10", "gordon anderson", "bought wrench", "wrenches fix stuff"),\
 		(1, "disgust", "6", "gordon anderson", "bought wrench", "wrenches fix stuff")'
 	];
@@ -42,17 +42,17 @@ app.factory('sqlService', function($cordovaSQLite) {
 		// 'DROP TABLE IF EXISTS patterns',
 		'CREATE TABLE IF NOT EXISTS patterns(\
 		id INTEGER PRIMARY KEY NOT NULL,\
-  	word TEXT NOT NULL UNIQUE,\
-  	mood TEXT NOT NULL,\
-  	origin TEXT NOT NULL,\
-  	strength REAL NOT NULL DEFAULT 0)',
-		`INSERT INTO patterns(word, mood, origin, strength) VALUES("icecream", "happy", "trigger", 0)`
+	  	word TEXT NOT NULL UNIQUE,\
+	  	mood TEXT NOT NULL,\
+	  	origin TEXT NOT NULL,\
+	  	strength REAL NOT NULL DEFAULT 0)',
+		`INSERT OR REPLACE INTO patterns(word, mood, origin, strength) VALUES("icecream", "happy", "trigger", 0)`
 	];
 
 	popQrys.feedback = [
 		// 'DROP TABLE IF EXISTS feedback',
 		'CREATE TABLE IF NOT EXISTS feedback( name TEXT PRIMARY KEY, response INTEGER NOT NULL )',
-		'INSERT INTO feedback (name, response) VALUES\
+		'INSERT OR REPLACE INTO feedback (name, response) VALUES\
 		("Watch Spongebob", 1),\
 		("Go to the gym", 0),\
 		("Call a family member or friend", 1),\
@@ -72,7 +72,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		contact TEXT NOT NULL,\
 		backgroundURL TEXT NOT NULL,\
 		reminderRate INTEGER NOT NULL DEFAULT 86400000)',
-		`INSERT INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('John', 'password123' ,'idk@idk.com', 'http://vignette2.wikia.nocookie.net/thehungergames/images/4/48/Happy_cat.jpg/revision/latest?cb=20121008044759', 86400000)`
+		`INSERT OR REPLACE INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('John', 'password123' ,'idk@idk.com', 'http://vignette2.wikia.nocookie.net/thehungergames/images/4/48/Happy_cat.jpg/revision/latest?cb=20121008044759', 86400000)`
 	];
 
 
@@ -87,11 +87,8 @@ app.factory('sqlService', function($cordovaSQLite) {
 			  ...popQrys.feedback,
 			  ...popQrys.preferences_table
 			], (error) => {
-				if(error) reject(error);
-				// just some test data
-				db.executeSql(`INSERT INTO mood_logs (mood, intensity, trigger, behavior, belief) VALUES ('my mood', 7, 'some trigger', 'some behavior', 'some belief')`, [], (resultSet) => {
-					resolve();
-				}, (error) => reject(error));
+				if(error) return reject(error);
+				return resolve();
 			}, (error) => {
 			  console.log('Populate table error: ' + error.message);
 			  reject(error);
@@ -106,27 +103,35 @@ app.factory('sqlService', function($cordovaSQLite) {
 	service.init = () => {
 		return new Promise((resolve, reject) => {
 			if(db === null){
-				console.log("DB not ready");
+				console.log("DB initializing...");
 				//instantiate db with cordova
 				db = window.sqlitePlugin.openDatabase({name: 'moodlogger.db', location: 'default', androidLockWorkaround: 1});
 				populate().then((res) => resolve(res), (err) => reject(err));
 			} else {
-				console.log("DB ready");
+				console.log("DB already initialized");
 				resolve();
 			}
 		});
 	}
+
+	/* utils */
+	const toArray = (resultSet) => {
+		let arr = [];
+		for(let i = 0; i < resultSet.rows.length; ++i) arr.push(resultSet.rows.item(i));
+		return arr;
+	};
 
 	/*
 	** Returns all fields in a specified table
 	** Args: table ( name of a table, String )
 	** Returns: Promise sucess(resultSet), error(error)
 	*/
-	service.viewTable = (table) => {
+	service.viewTable = (table, asArray) => {
 		return new Promise((resolve, reject) => {
 			const viewTable = () => {
 				db.executeSql(`SELECT * FROM ${table}`, [], (resultSet) => {
-					resolve(resultSet);
+					if(asArray) resolve(toArray(resultSet));
+					else resolve(resultSet);
 				}, (error) => reject(error));
 			}
 			if(db === null){
@@ -140,11 +145,12 @@ app.factory('sqlService', function($cordovaSQLite) {
 	** Args: qry ( an SQL query, String )
 	** Returns: Promise sucess(resultSet), error(error)
 	*/
-	service.executeQuery = (qry) => {
+	service.executeQuery = (qry, asArray) => {
 		return new Promise((resolve, reject) => {
 			const executeQuery = () => {
 				db.executeSql(qry, [], (resultSet) => {
-					resolve(resultSet);
+					if(asArray) resolve(toArray(resultSet));
+					else resolve(resultSet);
 				}, (error) => reject(error));
 			}
 			if(db === null){
