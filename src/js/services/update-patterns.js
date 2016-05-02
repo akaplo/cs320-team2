@@ -1,5 +1,5 @@
 /* jshint esversion:6 */
-app.service('UpdatePatterns', function() {
+app.service('UpdatePatterns', function(PatternThetas, ViewPatterns) {
   // Change me! eventually...
   const learningRate = 1;
 
@@ -18,8 +18,8 @@ app.service('UpdatePatterns', function() {
 
   function featureVector(arr) {
     return Promise.all(arr.map((word) =>
-      database.get_view_patterns_key_by_word(word))).then((mapped) => {
-        return [mapped, database.get_view_patterns_size()];
+      PatternThetas.get_view_patterns_key_by_word(word))).then((mapped) => {
+        return [mapped, PatternThetas.get_view_patterns_size()];
       }).then((spoils) => {
         return spoils[1].then((size) => {
           var vector = Array.apply(null, Array(size)).map(Number.prototype.valueOf, 0);
@@ -39,10 +39,15 @@ app.service('UpdatePatterns', function() {
   }
 
   function gradientDescent(mood, x, y, alpha) {
-    return database.get_mood_thetas(mood).then((thetas) => {
+    return PatternThetas.get_mood_thetas(mood).then((thetas) => {
       var promises = [];
-      thetas.forEach((theta, i) =>
-        promises.push(database.set_theta(i, mood, theta - ((predict(x, thetas) - y) * x[i]))));
+      thetas.forEach((theta, i) => {
+        var difference = (predict(x, thetas) - y) * x[i];
+        if(difference > 0) {
+          promises.push(PatternThetas.set_theta(i, mood, theta - difference));
+          promises.push(ViewPatterns.swap(i, mood, theta - difference));
+        }
+      });
       return Promise.all(promises);
     });
   }
