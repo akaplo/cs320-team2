@@ -6,12 +6,12 @@ app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
   sqlService.executeQuery(database_query).then(function(result){
     // TODO:  I don't think we reach here.
     console.log('Setting stuff to initial values!');
-    old = result.rows[0].cells;
-    $scope.preferences.userName     = old[0];
-    $scope.preferences.password     = old[1];
-    $scope.preferences.helpContact  = old[2];
-    $scope.preferences.splashScreen = old[3];
-    $scope.preferences.reminderRate = old[4];
+    var old = result.rows.item(0);
+    $scope.preferences.userName     = old.name;
+    $scope.preferences.password     = old.password;
+    $scope.preferences.helpContact  = old.contact;
+    $scope.preferences.splashScreen = old.backgroundURL;
+    $scope.preferences.reminderRate = old.reminderRate;
   });
   console.log('Got out of executeQuery');
 
@@ -46,7 +46,7 @@ app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
   $scope.preferences.deleteAll = function() {
     if(confirm('Are you sure?  If you delete your mood logs, they are gone.  This action cannot be undone!')) {
       // TODO:  Make sure this happens!
-      database_query = 'DELETE * FROM mood_logs';
+      database_query = 'DELETE FROM mood_logs';
       console.log(`Execute: ${database_query}`); // TODO:  Remove after debug.
       sqlService.executeQuery(database_query);
     }
