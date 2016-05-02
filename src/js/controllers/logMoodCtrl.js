@@ -1,14 +1,18 @@
-app.controller('LogMoodCtrl', function($scope, sqlService, $ionicPlatform, $ionicPopup){
+app.controller('LogMoodCtrl', function($scope, sqlService, $ionicPlatform, $ionicPopup, UpdatePatterns){
   $scope.formData = {};
 
   $scope.logMood = function(){
     let data = $scope.formData;
+    data.mood = data.mood.name;
+    data.intensity = parseInt(data.intensity, 10);
+
     $ionicPlatform.ready(function() {
-      let qry = `INSERT INTO mood_logs (mood, intensity, trigger, behavior, belief) VALUES ('${data.mood.name}', ${parseInt(data.intensity, 10)}, '${data.trigger}', '${data.behavior}', '${data.belief}')`;
+      let qry = `INSERT INTO mood_logs (mood, intensity, trigger, behavior, belief) VALUES ('${data.mood}', ${data.intensity}, '${data.trigger}', '${data.behavior}', '${data.belief}')`;
 
       sqlService.executeQuery(qry).then(
         (result) => {
-          console.log("insert result", result, result.rows.item(0))
+          debugger;
+          UpdatePatterns.update(data);
           queryAlert();
         },
         (err) => console.log("insert error", err)
