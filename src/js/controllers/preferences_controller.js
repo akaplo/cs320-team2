@@ -34,13 +34,14 @@ app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
 
   // Build functions.
   $scope.preferences.apply = function() {
-    var database_query = 'DELETE * FROM preferences_table';
+    var database_query = 'DELETE FROM preferences_table';
     console.log(`Execute: ${database_query}`); // TODO:  Remove after debug.
-    sqlService.executeQuery(database_query);
+    sqlService.executeQuery(database_query).catch((e) => console.log('test', e));
 
     database_query = `INSERT INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('${$scope.preferences.userName}', '${$scope.preferences.password}' ,'${$scope.preferences.helpContact}', '${$scope.preferences.splashScreen}', ${$scope.preferences.REMINDER_RATE_VALS[$scope.preferences.selectedReminderString]})`;
     console.log(`Execute: ${database_query}`); // TODO:  Remove after debug.
-    sqlService.executeQuery(database_query);
+    sqlService.executeQuery(database_query).catch((e) => console.log('test', e));
+
   }
   $scope.preferences.deleteAll = function() {
     if(confirm('Are you sure?  If you delete your mood logs, they are gone.  This action cannot be undone!')) {
@@ -51,4 +52,3 @@ app.controller('PreferencesCtrl', function($scope, sqlService, $ionicPlatform) {
     }
   }
 });
-
