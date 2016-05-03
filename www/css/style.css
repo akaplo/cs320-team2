@@ -24,3 +24,14 @@
 	font-weight: 100;
 	color: #fff;
 }
+
+div.left {
+    text-align: left;
+}
+div.right {
+    text-align: right;
+}
+div.left, div.right {
+    display: inline-block;
+    width: 50%;
+}

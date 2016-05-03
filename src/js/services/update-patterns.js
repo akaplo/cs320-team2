@@ -19,13 +19,11 @@ app.service('UpdatePatterns', function(PatternThetas, ViewPatterns) {
   function featureVector(arr) {
     return Promise.all(arr.map((word) =>
       PatternThetas.get_view_patterns_key_by_word(word))).then((mapped) => {
-        return [mapped, PatternThetas.get_view_patterns_size()];
+        return Promise.all([mapped, PatternThetas.get_view_patterns_size()]);
       }).then((spoils) => {
-        return spoils[1].then((size) => {
-          var vector = Array.apply(null, Array(size)).map(Number.prototype.valueOf, 0);
-          spoils[0].forEach((key) => vector[key] = 1);
-          return vector;
-        });
+        var vector = Array.apply(null, Array(spoils[1])).map(Number.prototype.valueOf, 0);
+        for(var i = 0; i < spoils[0].length; i++) vector[spoils[0][i] - 1] = 1;
+        return vector;
       });
   }
 
@@ -34,7 +32,6 @@ app.service('UpdatePatterns', function(PatternThetas, ViewPatterns) {
   }
 
   function predict(x, theta) {
-    // Make sure to import numeric somehow
     return sigmoid(numeric.dot(x, theta));
   }
 
@@ -43,7 +40,7 @@ app.service('UpdatePatterns', function(PatternThetas, ViewPatterns) {
       var promises = [];
       thetas.forEach((theta, i) => {
         var difference = (predict(x, thetas) - y) * x[i];
-        if(difference > 0) {
+        if(difference !== 0) {
           promises.push(PatternThetas.set_theta(i, mood, theta - difference));
           promises.push(ViewPatterns.swap(i, mood, theta - difference));
         }
@@ -66,14 +63,13 @@ app.service('UpdatePatterns', function(PatternThetas, ViewPatterns) {
       featureVector(stopFilter(rawText(moodLog.belief).split(" "))).then((belief) =>
       featureVector(stopFilter(rawText(moodLog.behavior).split(" "))).then((behavior) =>
         even([trigger, belief, behavior]).reduce((a, b) => a.concat(b))
-      )));
+      ))).catch((e) => console.log('feat', e));
   }
 
   return {
     update: (moodLog) => {
       return masterVector(moodLog).then((x) =>
-        gradientDescent(moodLog.mood, x, moodLog.intensity / 10, learningRate)
-      );
+        gradientDescent(rawText(moodLog.mood), x, moodLog.intensity / 10, learningRate));
     }
   };
 });

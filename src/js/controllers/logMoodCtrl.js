@@ -11,15 +11,14 @@ app.controller('LogMoodCtrl', function($scope, sqlService, $ionicPlatform, $ioni
 
       sqlService.executeQuery(qry).then(
         (result) => {
-          debugger;
-          UpdatePatterns.update(data);
+          UpdatePatterns.update(data).catch((e) => console.log('patterns', e));
           queryAlert();
         },
         (err) => console.log("insert error", err)
       );
     });
   }
-  
+
   $scope.moods = [
     {id:'1', name:'Anger'},
     {id:'2', name:'Disgust'},

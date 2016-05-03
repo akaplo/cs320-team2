@@ -22,31 +22,29 @@ app.factory('sqlService', function($cordovaSQLite) {
 		disgust_trigger_theta REAL NOT NULL DEFAULT 0,\
 		fear_trigger_theta REAL NOT NULL DEFAULT 0,\
 		happiness_trigger_theta REAL NOT NULL DEFAULT 0,\
-		saddness_trigger_theta REAL NOT NULL DEFAULT 0,\
+		sadness_trigger_theta REAL NOT NULL DEFAULT 0,\
 		surprise_trigger_theta REAL NOT NULL DEFAULT 0,\
 		anger_belief_theta REAL NOT NULL DEFAULT 0,\
 		disgust_belief_theta REAL NOT NULL DEFAULT 0,\
 		fear_belief_theta REAL NOT NULL DEFAULT 0,\
 		happiness_belief_theta REAL NOT NULL DEFAULT 0,\
-		saddness_belief_theta REAL NOT NULL DEFAULT 0,\
+		sadness_belief_theta REAL NOT NULL DEFAULT 0,\
 		surprise_belief_theta REAL NOT NULL DEFAULT 0,\
 		anger_behavior_theta REAL NOT NULL DEFAULT 0,\
 		disgust_behavior_theta REAL NOT NULL DEFAULT 0,\
 		fear_behavior_theta REAL NOT NULL DEFAULT 0,\
 		happiness_behavior_theta REAL NOT NULL DEFAULT 0,\
-		saddness_behavior_theta REAL NOT NULL DEFAULT 0,\
-		surprise_behavior_theta REAL NOT NULL DEFAULT 0)',
+		sadness_behavior_theta REAL NOT NULL DEFAULT 0,\
+		surprise_behavior_theta REAL NOT NULL DEFAULT 0)'
 	];
 
 	popQrys.patterns = [
-		// 'DROP TABLE IF EXISTS patterns',
 		'CREATE TABLE IF NOT EXISTS patterns(\
 		id INTEGER PRIMARY KEY NOT NULL,\
 	  	word TEXT NOT NULL UNIQUE,\
 	  	mood TEXT NOT NULL,\
 	  	origin TEXT NOT NULL,\
-	  	strength REAL NOT NULL DEFAULT 0)',
-		`INSERT OR REPLACE INTO patterns(word, mood, origin, strength) VALUES("icecream", "happy", "trigger", 0)`
+	  	strength REAL NOT NULL DEFAULT 0)'
 	];
 
 	popQrys.feedback = [
