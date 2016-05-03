@@ -64,7 +64,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 
 	popQrys.preferences_table = [
-		// 'DROP TABLE IF EXISTS preferences_table',
+		'DROP TABLE IF EXISTS preferences_table',
 		'CREATE TABLE IF NOT EXISTS preferences_table(\
 		id INTEGER PRIMARY KEY NOT NULL,\
 		name TEXT NOT NULL,\
@@ -72,7 +72,7 @@ app.factory('sqlService', function($cordovaSQLite) {
 		contact TEXT NOT NULL,\
 		backgroundURL TEXT NOT NULL,\
 		reminderRate INTEGER NOT NULL DEFAULT 86400000)',
-		`INSERT OR REPLACE INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('John', 'password123' ,'idk@idk.com', 'http://vignette2.wikia.nocookie.net/thehungergames/images/4/48/Happy_cat.jpg/revision/latest?cb=20121008044759', 86400000)`
+		`INSERT OR REPLACE INTO preferences_table (name, password, contact, backgroundURL, reminderRate) VALUES ('John', 'password123' ,'idk@idk.com', 'http://abcnews.go.com/images/Lifestyle/GTY_yawning_dog_dm_130807.jpg', 86400000)`
 	];
 
 

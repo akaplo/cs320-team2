@@ -12,7 +12,7 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
       );
   });
 
-  $scope.splashScreen = "https://s3.amazonaws.com/codecademy-blog/assets/puppy-main_zps26d178c5.jpg";
+  $scope.splashScreen = "http://abcnews.go.com/images/Lifestyle/GTY_yawning_dog_dm_130807.jpg";
 });
 
 
