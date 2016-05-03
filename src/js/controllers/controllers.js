@@ -1,14 +1,12 @@
 app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
   $ionicPlatform.ready(function() {
       // run a view query
-      sqlService.viewTable('feedback', true).then(
-        (result) => console.log("View result", result),
+      sqlService.viewTable('preferences_table', true).then(
+        (result) => {
+          let userObj = result[0];
+          $scope.name = userObj.name;
+        },
         (err) => console.log("View error", err)
-      );
-
-      sqlService.executeQuery('SELECT * FROM mood_logs').then(
-        (result) => console.log("Query result", result.rows.item(0)),
-        (err) => console.log("Query error", err)
       );
   });
 
