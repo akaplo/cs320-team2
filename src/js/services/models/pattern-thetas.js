@@ -60,34 +60,41 @@ app.service('PatternThetas', function(sqlService) {
 
   function getPatterns(word) {
     return sqlService.executeQuery(
-      `INSERT OR IGNORE INTO pattern_features(id, word) VALUES((SELECT max(id) from pattern_features) + 1, ${word}) ` +
-      `SELECT * from pattern_features ` +
-      `WHERE word = ${word}`);
+      `INSERT OR IGNORE INTO pattern_features(word) VALUES("${word}")`, true)
+      .catch((e) => console.log('insert patterns', e)).then(() => {
+        return sqlService.executeQuery(
+          `SELECT * from pattern_features ` +
+          `WHERE word = "${word}"`, true);})
+      .then((patterns) => patterns[0].id)
+      .catch((e) => console.log('patterns', e));
   }
 
   function getSize() {
-    return sqlService.executeQuery('SELECT max(id) FROM pattern_features');
+    return sqlService.executeQuery('SELECT max(id) FROM pattern_features', true)
+    .then((obj) => obj[0]['max(id)'])
+    .catch((e) => console.log('size', e));
   }
 
   function setTheta(key, mood, theta) {
-    return sqlService.executeQuery('SELECT max(id) FROM pattern_features').then((size) => {
+    return getSize().then((size) => {
       var origin;
       if(key / size < 1) origin = 'trigger';
-      if(key / size < 2) origin = 'belief';
-      if(key / size < 3) origin = 'behavior';
-      key = key % size;
+      else if(key / size < 2) origin = 'belief';
+      else if(key / size < 3) origin = 'behavior';
+      key = key % size + 1;
       return sqlService.executeQuery(
         `UPDATE pattern_features ` +
-        `SET ${mood}_${origin}_theta ` +
-        `WHERE id = ${key}`);
-    });
+        `SET ${mood}_${origin}_theta = ${theta} ` +
+        `WHERE id = ${key}`, true);
+    }).catch((e) => console.log('set theta', e));
   }
 
   function moodThetas(mood) {
     return Promise.all([
-      sqlService.executeQuery(`SELECT ${mood}_trigger_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_trigger_theta`])),
-      sqlService.executeQuery(`SELECT ${mood}_belief_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_belief_theta`])),
-      sqlService.executeQuery(`SELECT ${mood}_behavior_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_behavior_theta`]))]).then((arr) => arr.reduce((a, b) => a.concat(b)));
+      sqlService.executeQuery(`SELECT ${mood}_trigger_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_trigger_theta`])).catch((e) => console.log('mood thetas', e)),
+      sqlService.executeQuery(`SELECT ${mood}_belief_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_belief_theta`])).catch((e) => console.log('mood thetas', e)),
+      sqlService.executeQuery(`SELECT ${mood}_behavior_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_behavior_theta`]))]).then((arr) => arr.reduce((a, b) => a.concat(b)))
+      .catch((e) => console.log('mood thetas', e));
   }
 
   return {

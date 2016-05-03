@@ -1,1 +1,11 @@
 /* Empty. Add your own CSS if you like */
+div.left {
+    text-align: left;
+}
+div.right {
+    text-align: right;
+}
+div.left, div.right {
+    display: inline-block;
+    width: 50%;
+}
