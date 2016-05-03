@@ -22,24 +22,24 @@ app.service('ViewPatterns', function(sqlService) {
   database.get_pattern_cache = () => new Promise((resolve, reject) => resolve(patterns));
 
   function all() {
-    return sqlService.executeQuery('SELECT * FROM patterns');
+    return sqlService.executeQuery('SELECT * FROM patterns', true);
   }
 
   function swap(key, mood, theta) {
     var origin;
     var word;
-    return sqlService.executeQuery(`SELECT max(id) FROM pattern_features`).then((size) => {
+    return sqlService.executeQuery(`SELECT max(id) FROM pattern_features`, true).then((size) => {
       if(key / size < 1) origin = 'trigger';
       if(key / size < 2) origin = 'belief';
       if(key / size < 3) origin = 'behavior';
       key = key % size;
-      return sqlService.executeQuery(`SELECT word FROM pattern_features WHERE id = ${key}`);
+      return sqlService.executeQuery(`SELECT word FROM pattern_features WHERE id = ${key}`, true);
     }).then((obj) => word = obj.word).then(() => {
-      sqlService.executeQuery(`SELECT min(strength) FROM patterns`).then((min) => {
+      sqlService.executeQuery(`SELECT min(strength) FROM patterns`, true).then((min) => {
         if(min.strength < pattern.strength)
           return sqlService.executeQuery(
             `UPDATE patterns` +
-            `SET mood = ${mood}, strength = ${theta}, word = ${word}, origin = ${origin}`).then(() => pattern.strength);
+            `SET mood = ${mood}, strength = ${theta}, word = ${word}, origin = ${origin}`, true).then(() => pattern.strength);
         else
           return min.strength;
       });

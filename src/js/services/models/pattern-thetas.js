@@ -62,15 +62,15 @@ app.service('PatternThetas', function(sqlService) {
     return sqlService.executeQuery(
       `INSERT OR IGNORE INTO pattern_features(id, word) VALUES((SELECT max(id) from pattern_features) + 1, ${word}) ` +
       `SELECT * from pattern_features ` +
-      `WHERE word = ${word}`);
+      `WHERE word = ${word}`, true);
   }
 
   function getSize() {
-    return sqlService.executeQuery('SELECT max(id) FROM pattern_features');
+    return sqlService.executeQuery('SELECT max(id) FROM pattern_features', true);
   }
 
   function setTheta(key, mood, theta) {
-    return sqlService.executeQuery('SELECT max(id) FROM pattern_features').then((size) => {
+    return sqlService.executeQuery('SELECT max(id) FROM pattern_features', true).then((size) => {
       var origin;
       if(key / size < 1) origin = 'trigger';
       if(key / size < 2) origin = 'belief';
@@ -79,15 +79,15 @@ app.service('PatternThetas', function(sqlService) {
       return sqlService.executeQuery(
         `UPDATE pattern_features ` +
         `SET ${mood}_${origin}_theta ` +
-        `WHERE id = ${key}`);
+        `WHERE id = ${key}`, true);
     });
   }
 
   function moodThetas(mood) {
     return Promise.all([
-      sqlService.executeQuery(`SELECT ${mood}_trigger_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_trigger_theta`])),
-      sqlService.executeQuery(`SELECT ${mood}_belief_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_belief_theta`])),
-      sqlService.executeQuery(`SELECT ${mood}_behavior_theta FROM pattern_features`).then((arr) => arr.map((obj) => obj[`${mood}_behavior_theta`]))]).then((arr) => arr.reduce((a, b) => a.concat(b)));
+      sqlService.executeQuery(`SELECT ${mood}_trigger_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_trigger_theta`])),
+      sqlService.executeQuery(`SELECT ${mood}_belief_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_belief_theta`])),
+      sqlService.executeQuery(`SELECT ${mood}_behavior_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_behavior_theta`]))]).then((arr) => arr.reduce((a, b) => a.concat(b)));
   }
 
   return {
