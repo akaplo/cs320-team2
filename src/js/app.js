@@ -81,6 +81,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'chart.js'])
   })
   .state('tab.patterns', {
     url: '/patterns',
+    cache: false,
     views: {
       'tab-patterns': {
         templateUrl: 'templates/tab-patterns.html',
