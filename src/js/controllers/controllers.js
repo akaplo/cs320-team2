@@ -147,15 +147,13 @@ app.controller('ProgressDetailCtrl', function($scope, $stateParams, $ionicPlatfo
   $scope.mood = $stateParams.mood.toLowerCase();
 
   const showMood = (name) => {
-    $ionicPlatform.ready(function(){
-        sqlService.init().then((res) => {
-          sqlService.executeQuery(`SELECT * FROM mood_logs WHERE name=${name}`).then(
+    $ionicPlatform.ready(function(){{
+          sqlService.executeQuery(`SELECT * FROM mood_logs WHERE name='${name}'`).then(
             (result) => {
               console.log("Query result", result.rows.item(0))
             },
             (err) => console.log("Query error", err)
           );
-        });
     });
   };
   showMood($scope.mood);
