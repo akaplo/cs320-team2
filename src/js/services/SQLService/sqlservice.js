@@ -62,7 +62,6 @@ app.factory('sqlService', function($cordovaSQLite) {
 	];
 
 	popQrys.preferences_table = [
-		'DROP TABLE IF EXISTS preferences_table',
 		'CREATE TABLE IF NOT EXISTS preferences_table(\
 		id INTEGER PRIMARY KEY NOT NULL,\
 		name TEXT NOT NULL,\

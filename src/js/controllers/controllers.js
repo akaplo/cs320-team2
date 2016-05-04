@@ -1,15 +1,19 @@
 app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
-  $ionicPlatform.ready(function() {
-      // run a view query
-      sqlService.viewTable('preferences_table', true).then(
-        (result) => {
-          let userObj = result[0];
-          $scope.name = userObj.name;
-        },
-        (err) => console.log("View error", err)
-      );
-  });
-
+  $scope.$on('$ionicView.enter', function() {
+    refreshName();
+  })
+  function refreshName () {
+    $ionicPlatform.ready(function() {
+        // run a view query
+        sqlService.viewTable('preferences_table', true).then(
+          (result) => {
+            let userObj = result[0];
+            $scope.name = userObj.name;
+          },
+          (err) => console.log("View error", err)
+        );
+    });
+  }
   $scope.splashScreen = "http://abcnews.go.com/images/Lifestyle/GTY_yawning_dog_dm_130807.jpg";
 });
 
@@ -56,13 +60,13 @@ app.controller('GetHelpCtrl', function($scope, GetHelp, $ionicPopup, sqlService,
    confirmPopup.then(function(res) {
      if(res) {
        console.log('They like the strategy');
-       sqlService.executeQuery(`UPDATE feedback SET response = 1 WHERE name = ${strategy.name}`).then(
+       sqlService.executeQuery(`UPDATE feedback SET response = 1 WHERE name = '${strategy.name}'`).then(
          (result) => console.log("Query result", result.rows.item(0)),
          (err) => console.log("Query error", err)
        );
      } else {
        console.log('They dont like the strategy');
-       sqlService.executeQuery(`UPDATE feedback SET response = 0 WHERE name = ${strategy.name}`).then(
+       sqlService.executeQuery(`UPDATE feedback SET response = 0 WHERE name = '${strategy.name}'`).then(
          (result) => console.log("Query result", result.rows.item(0)),
          (err) => console.log("Query error", err)
        );
