@@ -128,15 +128,6 @@ app.controller('GetHelpCtrl', function($scope, GetHelp, $ionicPopup, sqlService,
  };
 });
 
-app.controller('LineCtrl', function($scope) {
-  $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  $scope.series = ['Angry', 'Happy'];
-  $scope.data = [
-    [0, 5, 7, 9, 6, 7, 8],
-    [0, 3, 3, 5, 4, 5, 5]
-  ];
-});
-
 app.controller('TrackProgressCtrl', function($scope) {
   $scope.moods = ['Happiness',
                   'Disgust',
@@ -147,11 +138,10 @@ app.controller('TrackProgressCtrl', function($scope) {
 });
 
 app.controller('ProgressDetailCtrl', function($scope, $stateParams, $ionicPlatform, sqlService) {
-  $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  $scope.series = ['Angry', 'Happy'];
+  $scope.labels = ['1', '2', '3', '4', '5', '6', '7'];
+  $scope.series = ['Angry'];
   $scope.data = [
     [0, 5, 7, 9, 6, 7, 8],
-    [0, 3, 3, 5, 4, 5, 5]
   ];
 
   $scope.mood = $stateParams.mood.toLowerCase();
