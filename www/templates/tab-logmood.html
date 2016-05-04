@@ -1,0 +1,66 @@
+<ion-view view-title="Log Mood">
+  <ion-content>
+    <div class="list list-inset">
+      <label class="item item-input item-select">
+        <div class="input-label">Mood</div>
+        <select name="mood-select" ng-options="mood.name for mood in moods track by mood.id" ng-model="formData.mood"></select>
+      </label>
+
+      <label class="item">
+          <div class="item-content">Intensity</div>
+          <div class="range range-positive">
+              <span>1</span>
+              <input ng-init="formData.intensity = 1" type="range" name="volume" min="1" max="10" ng-model="formData.intensity">
+              <span>10</span>
+          </div>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Trigger</span>
+        <input type="text" placeholder="What triggered the mood?" ng-model="formData.trigger">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Behavior</span>
+        <input type="text" placeholder="Behavior?" ng-model="formData.behavior">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Belief</span>
+        <input type="text" placeholder="Belief?" ng-model="formData.belief">
+      </label>
+
+      <button class="button button-block button-outline button-balanced" ng-click="logMood()">Log Mood</button>
+    </div>
+  </ion-content>
+</ion-view>
+
+<!--<ion-view view-title="LogMood">
+  <ion-content class="padding">
+    <h2>Log Mood</h2>
+    <div ng-controller = "LogMoodCtrl">
+    <form name = "LogMoodForm">
+      <label for="selectMood"> Select Mood: </label>
+        <select ng-model ="moodInput.repeatSelect">
+          <option ng-repeat="option in moodInput.moods" value="{{option.id}}">{{option.name}}</option>
+          </select>
+      </label>
+      <label for="moodIntensity"> Select Mood Intensity: </label>
+        <select ng-model ="intensityInput.repeatSelect">
+          <option ng-repeat="option in intensityInput.moodIntensity" value="{{option.id}}">{{option.name}}</option>
+          </select>
+      </label>
+      <label>Trigger:
+        <input type="text" ng-model="intrigger">
+      </label>
+      <label>Behavior:
+        <input type="text" ng-model="inbehavior">
+      </label>
+      <label>Belief:
+        <input type="text" ng-model="inbelief">
+      </label>
+      </label>
+      <button name="submit" ng-click="submit()">
+        Submit
+      </button>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>-->

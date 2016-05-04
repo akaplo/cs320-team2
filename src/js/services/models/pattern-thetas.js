@@ -1,5 +1,5 @@
 /* jshint esversion:6 */
-app.service('PatternThetas', function() {
+app.service('PatternThetas', function(sqlService) {
 
   function ThetaRow(key, word, happy_trigger_theta, sad_trigger_theta, happy_belief_theta, sad_belief_theta, happy_behavior_theta, sad_behavior_theta) {
     this.key = key;
@@ -58,10 +58,49 @@ app.service('PatternThetas', function() {
     );
   };
 
+  function getPatterns(word) {
+    return sqlService.executeQuery(
+      `INSERT OR IGNORE INTO pattern_features(word) VALUES("${word}")`, true)
+      .catch((e) => console.log('insert patterns', e)).then(() => {
+        return sqlService.executeQuery(
+          `SELECT * from pattern_features ` +
+          `WHERE word = "${word}"`, true);})
+      .then((patterns) => patterns[0].id)
+      .catch((e) => console.log('patterns', e));
+  }
+
+  function getSize() {
+    return sqlService.executeQuery('SELECT max(id) FROM pattern_features', true)
+    .then((obj) => obj[0]['max(id)'])
+    .catch((e) => console.log('size', e));
+  }
+
+  function setTheta(key, mood, theta) {
+    return getSize().then((size) => {
+      var origin;
+      if(key / size < 1) origin = 'trigger';
+      else if(key / size < 2) origin = 'belief';
+      else if(key / size < 3) origin = 'behavior';
+      key = key % size + 1;
+      return sqlService.executeQuery(
+        `UPDATE pattern_features ` +
+        `SET ${mood}_${origin}_theta = ${theta} ` +
+        `WHERE id = ${key}`, true);
+    }).catch((e) => console.log('set theta', e));
+  }
+
+  function moodThetas(mood) {
+    return Promise.all([
+      sqlService.executeQuery(`SELECT ${mood}_trigger_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_trigger_theta`])).catch((e) => console.log('mood thetas', e)),
+      sqlService.executeQuery(`SELECT ${mood}_belief_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_belief_theta`])).catch((e) => console.log('mood thetas', e)),
+      sqlService.executeQuery(`SELECT ${mood}_behavior_theta FROM pattern_features`, true).then((arr) => arr.map((obj) => obj[`${mood}_behavior_theta`]))]).then((arr) => arr.reduce((a, b) => a.concat(b)))
+      .catch((e) => console.log('mood thetas', e));
+  }
+
   return {
-    get_view_patterns_key_by_word: database.get_view_patterns_key_by_word,
-    get_view_patterns_size: database.get_view_patterns_size,
-    set_theta: database.set_theta,
-    get_mood_thetas: database.get_mood_thetas,
+    get_view_patterns_key_by_word: getPatterns,
+    get_view_patterns_size: getSize,
+    set_theta: setTheta,
+    get_mood_thetas: moodThetas,
   };
 });

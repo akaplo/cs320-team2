@@ -1,6 +1,5 @@
 <ion-view view-title="Preferences">
   <ion-content class="padding">
-    <h2>Preferences</h2>
     <div class="list">
       <label class="item item-input">
         <span class="input-label">Your Name</span>
@@ -14,10 +13,11 @@
         <span class="input-label">Help Contact</span>
         <input type="text" ng-model="preferences.helpContact">
       </label>
-      <a class="item item-thumbnail-right" href="#">
+      <label class="item item-input">
         <h2><span class="input-label">Splash Screen</span></h2>
-        <img ng-src="{{preferences.splashScreen}}">
-      </a>
+        <input type="text" ng-model="preferences.splashScreen">
+        <img style="width: 100%;" ng-src="{{preferences.splashScreen}}">
+      </label>
       <label class="item item-input item-select">
         <div class="input-label">
           Reminder Rate
@@ -27,12 +27,12 @@
         </select>
 
       </label>
-      <button class="button button-large button-balanced" ng-click="preferences.apply()">
-        Apply
-      </button>
-      <button class="button button-large button-balanced" ng-click="preferences.deleteAll()">
-        Delete All Mood Logs
-      </button>
     </div>
+    <button class="button button-outline button-balanced" ng-click="preferences.apply()">
+      Apply
+    </button>
+    <button class="button button-outline button-assertive" ng-click="preferences.deleteAll()">
+      Delete All Mood Logs
+    </button>
   </ion-content>
 </ion-view>

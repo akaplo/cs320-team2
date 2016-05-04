@@ -50,6 +50,16 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'chart.js'])
     }
   })
 
+  .state('tab.logmood', {
+    url: '/logmood',
+    views: {
+      'tab-logmood': {
+        templateUrl: 'templates/tab-logmood.html',
+        controller: 'LogMoodCtrl'
+      }
+    }
+  })
+
   .state('tab.preferences', {
     url: '/preferences',
     views: {
@@ -71,6 +81,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'chart.js'])
   })
   .state('tab.patterns', {
     url: '/patterns',
+    cache: false,
     views: {
       'tab-patterns': {
         templateUrl: 'templates/tab-patterns.html',

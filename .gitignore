@@ -2,8 +2,13 @@
 # http://git-scm.com/docs/gitignore
 
 node_modules/
-platforms/
+platforms/android
+platforms/ios
 plugins/
+!plugins/android.json
+!plugins/ios.json
+!plugins/fetch.json
 www/lib/
 www/js/app.min.js
-resources
+.DS_Store
+*.log
