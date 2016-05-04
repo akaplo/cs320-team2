@@ -85,11 +85,6 @@ app.controller('TrackProgressCtrl', function($scope) {
 });
 
 app.controller('ProgressDetailCtrl', function($scope, $stateParams, $ionicPlatform, sqlService) {
-  $scope.labels = ['1', '2', '3', '4', '5', '6', '7'];
-  $scope.series = ['Angry'];
-  $scope.data = [
-    [0, 5, 7, 9, 6, 7, 8],
-  ];
 
   $scope.mood = $stateParams.mood.toLowerCase();
 
