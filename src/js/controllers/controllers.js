@@ -76,20 +76,20 @@ app.controller('GetHelpCtrl', function($scope, GetHelp, $ionicPopup, sqlService,
 });
 
 app.controller('TrackProgressCtrl', function($scope) {
-  $scope.moods = ['Happiness',
-                  'Disgust',
-                  'Fear',
-                  'Saddness',
-                  'Angry',
-                  'Suprise'];
+  $scope.moods = ['happiness',
+                  'disgust',
+                  'fear',
+                  'saddness',
+                  'angry',
+                  'suprise'];
 });
 
 app.controller('ProgressDetailCtrl', function($scope, $stateParams, $ionicPlatform, sqlService) {
-  $scope.labels = ['1', '2', '3', '4', '5', '6', '7'];
-  $scope.series = ['Angry'];
-  $scope.data = [
-    [0, 5, 7, 9, 6, 7, 8],
-  ];
+  // $scope.labels = ['1', '2', '3', '4', '5', '6', '7'];
+  
+  // $scope.data = [
+  //   [0, 5, 7, 9, 6, 7, 8],
+  // ];
 
   $scope.mood = $stateParams.mood.toLowerCase();
 
@@ -106,7 +106,9 @@ app.controller('ProgressDetailCtrl', function($scope, $stateParams, $ionicPlatfo
                 labels.push(i + 1);
               });
 
-              $scope.data = data; $scope.labels = labels;
+              $scope.data = data; 
+              $scope.labels = labels;
+              $scope.series = [name];
             },
             (err) => console.log("Query error", err)
           );

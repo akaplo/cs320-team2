@@ -20,12 +20,12 @@ app.controller('LogMoodCtrl', function($scope, sqlService, $ionicPlatform, $ioni
   }
 
   $scope.moods = [
-    {id:'1', name:'Anger'},
-    {id:'2', name:'Disgust'},
-    {id:'3', name:'Fear'},
-    {id:'4', name:'Happiness'},
-    {id:'5', name:'Sadness'},
-    {id:'6', name:'Surprise'}
+    {id:'1', name:'anger'},
+    {id:'2', name:'disgust'},
+    {id:'3', name:'fear'},
+    {id:'4', name:'happiness'},
+    {id:'5', name:'sadness'},
+    {id:'6', name:'surprise'}
   ];
 
   function queryAlert(){
