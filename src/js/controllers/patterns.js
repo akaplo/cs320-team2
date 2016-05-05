@@ -9,7 +9,7 @@ app.controller('PatternsCtrl', ($scope, ViewPatterns) => {
         if(min > pattern.strength) min = pattern.strength;
         if(max < pattern.strength) max = pattern.strength;
       });
-      patterns.forEach((pattern) => pattern.strength = Math.round((pattern.strength - min) * 100 / (max - min)));
+      patterns.forEach((pattern) => pattern.strength = Math.round((pattern.strength - min) * 100 / ((max - min === 0)?1:(max - min))));
     }
     return patterns;
   })

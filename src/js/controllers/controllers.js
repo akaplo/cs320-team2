@@ -9,12 +9,14 @@ app.controller('DashCtrl', function($scope, sqlService, $ionicPlatform) {
           (result) => {
             let userObj = result[0];
             $scope.name = userObj.name;
+            $scope.splashScreen = userObj.backgroundURL;
+
           },
           (err) => console.log("View error", err)
         );
     });
   }
-  $scope.splashScreen = "http://abcnews.go.com/images/Lifestyle/GTY_yawning_dog_dm_130807.jpg";
+  // $scope.splashScreen = "http://abcnews.go.com/images/Lifestyle/GTY_yawning_dog_dm_130807.jpg";
 });
 
 
@@ -100,7 +102,7 @@ app.controller('ProgressDetailCtrl', function($scope, $stateParams, $ionicPlatfo
                 labels.push(i + 1);
               });
 
-              $scope.data = data; 
+              $scope.data = data;
               $scope.labels = labels;
               $scope.series = [name];
             },
